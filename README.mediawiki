@@ -69,8 +69,14 @@ The tool to change file permissions (change mode or short "chmod") is in <nowiki
 
 Also see: [https://github.com/dakanji/G2Project-preinstaller#How_can_I_fix_the_filesystem_permissions_of_the_Gallery_storage_folder.3F How can I fix the filesystem permissions of the Gallery storage folder?]
 
-=== How can I upload a theme or module via FTP when I used the preinstaller? ===
-See: Gallery 2 FAQ: [https://github.com/dakanji/G2Project-preinstaller#how-can-i-upload-a-theme-or-module-via-ftp-when-i-used-the-gallery-2-pre-iinstaller How can I upload a theme or module via FTP when I used the Gallery 2 Pre-Iinstaller?]
+=== How can I upload a theme or module via FTP when I used the Gallery 2 Pre-Iinstaller? ===
+If you installed Gallery 2 with the Gallery 2 Pre-Installer, you need to first open the modules/ and themes/ directory for access before you can upload a theme or module manually yourself.
+# Go to {{exampleurl|/lib/support/index.php}}, sign in with your Gallery 2 setup password and follow the "Filesystem Permissions" link.
+# Click on "Add a new module or theme (make modules/ & themes/ writeable)" to open up your themes/ and modules/ folders.
+# Now you can upload your theme or module via FTP.
+# Finally don't forget to "close" the themes/ and modules/ folders again on the "Filesystem Permissions" page.
+
+* Note that you can fetch new modules and themes directly via the Site Admin -> Plugins page. FTP is not needed unless for modules and themes that are not in the available repositories.
 
 === The chmod tool does not work, what's wrong? ===
 The chmod tool can only change the filesystem permissions of files and folders that are owned by the webserver. Probably, some or all of your files / folders are owned by your account. If you don't use the Gallery 2 Pre-Installer anyway, just forget about the chmod tool. Probably you don't need it. If you are a Gallery 2 Pre-Installer user and need it to work, ask your webhost to run 'chown -R www /path/to/your/gallery/' since maybe your webhost accidentally changed the owner when restoring a backup or because they thought that was the right thing to do.
@@ -91,12 +97,3 @@ Usually you get either an ERROR_PLATFORM_FAILURE or the upgrade wizard reports t
 In that case, if the above suggestions do not help, please try to delete g2data/smarty/templates_c/ folder via FTP or whatever tool you use to upload / manage files of your website.
 
 * If the problem does not disappear or is reappearing after it has been fixed for a while, please ask your webhost whether there are any scripts that change the owner of the files to the account owner. This could be the culprit since files are not created / managed by your account, but by the webserver application. We also welcome you to consult the Gallery Support Forum for further expert advice.
-
-=== How can I upload a theme or module via FTP when I used the Gallery 2 Pre-Iinstaller? ===
-If you installed Gallery 2 with the Gallery 2 Pre-Installer, you need to first open the modules/ and themes/ directory for access before you can upload a theme or module manually yourself.
-# Go to {{exampleurl|/lib/support/index.php}}, sign in with your Gallery 2 setup password and follow the "Filesystem Permissions" link.
-# Click on "Add a new module or theme (make modules/ & themes/ writeable)" to open up your themes/ and modules/ folders.
-# Now you can upload your theme or module via FTP.
-# Finally don't forget to "close" the themes/ and modules/ folders again on the "Filesystem Permissions" page.
-
-* Note that you can fetch new modules and themes directly via the Site Admin -> Plugins page. FTP is not needed unless for modules and themes that are not in the available repositories.
