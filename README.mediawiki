@@ -38,24 +38,24 @@ And here's the whole truth...all steps in detail:
 # Run the upgrader as usual (browse to your gallery, it will start automatically).
 
 === Upgrading a Gallery 2 Instance Installed with the Gallery 2 Pre-Installer ===
-# Use the chmod tool of your Gallery 2 (<nowiki>http://www.example.com/gallery2/lib/support/index.php?chmod</nowiki>) to prepare your gallery folder for the upgrade (open up the filesystem permissions). 
-# Put the preinstall.php script into the same folder as your Gallery folder is in (not into gallery2/main.php. Put it one folder higher.)
+# Use the chmod tool of your Gallery 2 Instance (<nowiki>http://www.example.com/gallery2/lib/support/index.php?chmod</nowiki>) to prepare your gallery folder for the upgrade (open up the filesystem permissions). 
+# Put the preinstall.php script into the same folder as your Gallery 2 Instance (not into gallery2/main.php. Put it one folder higher.)
 # If your Gallery folder is not "gallery2", use the preinstall.php script to rename your old Gallery folder to gallery2
 # Use the preinstall.php script to get the latest Gallery 2 version onto server. (Download)
 # Use the preinstall.php script to extract the new version over your existing gallery2 folder.
-# Use preinstall.php to rename gallery2 to your original folder name, if you had a different name.
+# Use preinstall.php to rename "gallery2" to your original folder name, if you had a different name.
 # Delete preinstall.php (leaving it on your server poses a security risk).
 # Run the upgrader as usual (browse to your gallery, it will start automatically).
-# Use the chmod tool (lib/support/) to secure your Gallery folder again. Maybe also click "fix Gallery Storage folder" after securing the Gallery folder.
+# Use the chmod tool (lib/support/) to secure your Gallery 2 folder again. Maybe also click "fix Gallery Storage folder" after securing the Gallery folder.
 
 === Switching from a Gallery 2 Instance Installed with the Gallery 2 Pre-Installer to a Standard Installation ===
 # Use the chmod tool of your Gallery 2 Instance (<nowiki>http://www.example.com/gallery2/lib/support/index.php?chmod</nowiki>) to prepare your gallery folder for the upgrade (open up the filesystem permissions). 
-# Rename your Gallery folder to something like gallery_old
-# Put your new Gallery folder on the webserver with whatever non-Pre-Installer method (FTP, CVS, ssh, ...) since you want to get rid of a "server-owned"  Gallery 2 Instance.
-# Copy config.php and .htaccess from your old to your new Gallery folder.
-# Maybe the new Gallery folder is also a new version of  Gallery 2, if so, run the upgrader.
+# Rename your Gallery 2 folder to something like "gallery_old"
+# Put your new Gallery 2 folder on the webserver with whatever non-Pre-Installer method (FTP, CVS, ssh, ...) since you want to get rid of a "server-owned"  Gallery 2 Instance.
+# Copy config.php and .htaccess from your old to your new Gallery 2 folder.
+# Maybe the new Gallery 2 folder is also a new version of  Gallery 2, if so, run the upgrader.
 # Make sure everything is working when using your new folder.
-# If so, you can now safely delete your old gallery_old folder.
+# If so, you can now safely delete your old "gallery_old" folder.
 
 == FAQ == 
 === Which download method should I choose? ===
@@ -88,7 +88,7 @@ Usually you get either an ERROR_PLATFORM_FAILURE or the upgrade wizard reports t
 
 * You can also try to change the permissions to 777 (read & writeable for everyone) with your FTP program. If all fails, please ask in the forum for help such that we can verify that it is indeed a filesystem permissions problem. If it actually is one, you'll have to ask your webhost to change the filesystem permissions '''recursively''' for you (e.g. chmod -R 777 g2data).
 
-* What might help is removing all cached data from the storage folder. Please see: [http://codex.galleryproject.org/G2:FAQ#How_can_I_clear_cached_data.3F How can I clear cached data?]
+* What might help is removing all cached data from the storage folder. Please see Gallery 2 FAQ: [http://codex.galleryproject.org/G2:FAQ#How_can_I_clear_cached_data.3F How can I clear cached data?]
 
 * A common issue is:
  Error (ERROR_PLATFORM_FAILURE) :
