@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Readme :: G2 Pre-Installer</title>'
+	<style type="text/css">
+		/*!
+		 * bootswatch v3.3.7
+		 * Homepage: http://bootswatch.com
+		 * Copyright 2012-2016 Thomas Park
+		 * Licensed under MIT
+		 * Based on Bootstrap
+		 */
+		/*!
+		 * Bootstrap v3.3.7 (http://getbootstrap.com)
+		 * Copyright 2011-2016 Twitter, Inc.
+		 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+		 */
+		*,
+		*:before,
+		*:after {
+			box-sizing: inherit;
+			vertical-align: baseline;
+		}
+
+		html {
+			box-sizing: border-box;
+			font: 16px/1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+			font-weight: 200;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+
+		body {
+			background: #ffffff;
+			color: #77777;
+			margin: 10px auto;
+		}
+
+		/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+		a {
+			background-color: transparent;
+		}
+
+		a:active,
+		a:hover {
+			outline: 0;
+		}
+
+		b {
+			font-weight: bold;
+		}
+
+		button,
+		input,
+		select {
+			color: inherit;
+			font: inherit;
+			margin: 0;
+		}
+
+		button {
+			overflow: visible;
+		}
+
+		button,
+		select {
+			text-transform: none;
+		}
+
+		button,
+		input[type="submit"] {
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		html input[disabled] {
+			cursor: default;
+		}
+
+		button::-moz-focus-inner,
+		input::-moz-focus-inner {
+			border: 0;
+			padding: 0;
+		}
+
+		input {
+			line-height: normal;
+		}
+
+		input[type="radio"] {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 0;
+		}
+
+		fieldset {
+			border: 1px solid #c0c0c0;
+			margin: 0 2px;
+			padding: 0.35em 0.625em 0.75em;
+		}
+
+		legend {
+			border: 0;
+			padding: 0;
+		}
+
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+
+		td {
+			padding: 0;
+		}
+
+		/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+		@media print {
+			*,
+			*:before,
+			*:after {
+				background: transparent !important;
+				color: #000 !important;
+				-webkit-box-shadow: none !important;
+				box-shadow: none !important;
+				text-shadow: none !important;
+			}
+
+			a,
+			a:visited {
+				text-decoration: underline;
+			}
+
+			a[href]:after {
+				content: " ("attr(href) ")";
+			}
+
+			tr {
+				page-break-inside: avoid;
+			}
+
+			p,
+			h2,
+			h3 {
+				orphans: 3;
+				widows: 3;
+			}
+
+			h2,
+			h3 {
+				page-break-after: avoid;
+			}
+
+			.table {
+				border-collapse: collapse !important;
+			}
+
+			.table td {
+				background-color: #fff !important;
+			}
+		}
+
+		input,
+		button,
+		select {
+			font-family: inherit;
+			font-size: inherit;
+			line-height: inherit;
+		}
+
+		a:hover,
+		a:focus {
+			color: #0a6ebd;
+			text-decoration: underline;
+		}
+
+		a:focus {
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px;
+		}
+
+		p {
+			margin: 0 0 11.5px;
+		}
+
+		.lead {
+			font-size: 14px;
+			font-weight: 100;
+			margin: 0 0 2.25rem;
+			padding: 0 0 1.5rem;
+			color: #888 !Important;
+		}
+
+		.text-success {
+			color: #4caf50;
+		}
+
+		.text-info {
+			color: #6c757d;
+		}
+
+		.text-warning {
+			color: #ff9800;
+		}
+
+		.text-muted {
+			color: #bbbbbb;
+		}
+
+		.text-primary {
+			color: #2196f3;
+		}
+
+		ul,
+		ol {
+			margin-top: 0;
+			margin-bottom: 11.5px;
+		}
+
+		.container {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		@media (min-width: 768px) {
+			.container {
+				width: 750px;
+			}
+		}
+
+		@media (min-width: 992px) {
+			.container {
+				width: 970px;
+			}
+		}
+
+		@media (min-width: 1200px) {
+			.container {
+				width: 1170px;
+			}
+		}
+
+		.col-sm-2,
+		.col-sm-3,
+		.col-sm-4,
+		.col-sm-8,
+		.col-sm-9,
+		.col-sm-10,
+		.col-xs-4
+		.col-xs-6
+		.col-xs-8,
+		.col-xs-10 {
+			position: relative;
+			min-height: 1px;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.col-xs-4,
+		.col-xs-6,
+		.col-xs-8,
+		.col-xs-10 {
+			float: left;
+		}
+
+		.col-xs-10 {
+			width: 83.33333333%;
+		}
+
+		.col-xs-8 {
+			width: 66.66666667%;
+		}
+
+		.col-xs-6 {
+			width: 50%;
+		}
+
+		.col-xs-4 {
+			width: 33.33333333%;
+		}
+
+		@media (min-width: 768px) {
+
+			.col-sm-2,
+			.col-sm-3,
+			.col-sm-4,
+			.col-sm-8,
+			.col-sm-9,
+			.col-sm-10 {
+				float: left;
+			}
+
+			.col-sm-10 {
+				width: 83.33333333%;
+			}
+
+			.col-sm-9 {
+				width: 75%;
+			}
+
+			.col-sm-8 {
+				width: 66.66666667%;
+			}
+
+			.col-sm-4 {
+				width: 33.33333333%;
+			}
+
+			.col-sm-3 {
+				width: 25%;
+			}
+
+			.col-sm-2 {
+				width: 16.66666667%;
+			}
+
+			.col-sm-offset-2 {
+				margin-left: 16.66666667%;
+			}
+		}
+
+		table {
+			background-color: transparent;
+		}
+
+		.table {
+			width: 100%;
+			max-width: 100%;
+			margin-bottom: 23px;
+		}
+
+		.table>tbody>tr>td {
+			padding: 8px;
+			line-height: 1.846;
+			vertical-align: top;
+		}
+
+		.table-striped>tbody>tr:nth-of-type(odd) {
+			background-color: #f9f9f9;
+		}
+
+		.table-hover>tbody>tr:hover {
+			background-color: #f5f5f5;
+		}
+
+		fieldset {
+			padding: 0;
+			margin: 0;
+			border: 0;
+			min-width: 0;
+		}
+
+		legend {
+			display: block;
+			width: 100%;
+			padding: 0;
+			margin-bottom: 23px;
+			font-size: 19.5px;
+			line-height: inherit;
+			color: #212121;
+			border: 0;
+			border-bottom: 1px solid #e5e5e5;
+		}
+
+		label {
+			display: inline-block;
+			max-width: 100%;
+			margin-bottom: 5px;
+			font-weight: bold;
+		}
+
+		input[type="radio"] {
+			margin: 4px 0 0;
+			margin-top: 1px \9;
+			line-height: normal;
+		}
+
+		input[type="radio"]:focus {
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px;
+		}
+
+		.form-control {
+			display: block;
+			width: 100%;
+			height: 37px;
+			padding: 6px 16px;
+			font-size: 13px;
+			line-height: 1.846;
+			color: #666666;
+			background-color: transparent;
+			background-image: none;
+			border: 1px solid transparent;
+			border-radius: 3px;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+			-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+			-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+			transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		}
+
+		.form-control:focus {
+			border-color: #66afe9;
+			outline: 0;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, 0.6);
+		}
+
+		.form-control::-moz-placeholder {
+			color: #bbbbbb;
+			opacity: 1;
+		}
+
+		.form-control:-ms-input-placeholder {
+			color: #bbbbbb;
+		}
+
+		.form-control::-webkit-input-placeholder {
+			color: #bbbbbb;
+		}
+
+		.form-control::-ms-expand {
+			border: 0;
+			background-color: transparent;
+		}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+		input[type="radio"][disabled] {
+			cursor: not-allowed;
+		}
+
+		.form-horizontal .form-group {
+			margin-left: -15px;
+			margin-right: -15px;
+		}
+
+		@media (min-width: 768px) {
+			.form-horizontal .control-label {
+				text-align: right;
+				margin-bottom: 0;
+				padding-top: 7px;
+			}
+		}
+
+		.btn {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: normal;
+			text-align: center;
+			vertical-align: middle;
+			-ms-touch-action: manipulation;
+			touch-action: manipulation;
+			cursor: pointer;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 6px 16px;
+			font-size: 13px;
+			line-height: 1.846;
+			border-radius: 3px;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.btn:focus,
+		.btn:active:focus {
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px;
+		}
+
+		.btn:hover,
+		.btn:focus {
+			color: #444444;
+			text-decoration: none;
+		}
+
+		.btn:active {
+			outline: 0;
+			background-image: none;
+			-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+			box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+		}
+
+		.btn-default {
+			color: #444444;
+			background-color: #ffffff;
+			border-color: transparent;
+		}
+
+		.btn-default:focus {
+			color: #444444;
+			background-color: #e6e6e6;
+			border-color: rgba(0, 0, 0, 0);
+		}
+
+		.btn-default:hover {
+			color: #444444;
+			background-color: #e6e6e6;
+			border-color: rgba(0, 0, 0, 0);
+		}
+
+		.btn-default:active {
+			color: #444444;
+			background-color: #e6e6e6;
+			border-color: rgba(0, 0, 0, 0);
+		}
+
+		.btn-default:active:hover,
+		.btn-default:active:focus {
+			color: #444444;
+			background-color: #d4d4d4;
+			border-color: rgba(0, 0, 0, 0);
+		}
+
+		.btn-default:active {
+			background-image: none;
+		}
+
+		.btn-primary {
+			color: #ffffff;
+			background-color: #2196f3;
+			border-color: transparent;
+		}
+
+		.btn-primary:focus {
+			color: #ffffff;
+			background-color: #0c7cd5;
+			border-color: rgba(0, 0, 0, 0);
+		}
+
+		.btn-primary:hover {
+			color: #ffffff;
+			background-color: #0c7cd5;
+			border-color: rgba(0, 0, 0, 0);
+		}
+
+		.btn-primary:active {
+			color: #ffffff;
+			background-color: #0c7cd5;
+			border-color: rgba(0, 0, 0, 0);
+		}
+
+		.btn-primary:active:hover,
+		.btn-primary:active:focus {
+			color: #ffffff;
+			background-color: #0a68b4;
+			border-color: rgba(0, 0, 0, 0);
+		}
+
+		.btn-primary:active {
+			background-image: none;
+		}
+
+		.label {
+			display: inline;
+			padding: .2em .6em .3em;
+			font-size: 75%;
+			font-weight: bold;
+			line-height: 1;
+			color: #ffffff;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: baseline;
+			border-radius: .25em;
+		}
+
+		.label-success {
+			background-color: #4caf50;
+		}
+
+		.label-danger {
+			background-color: #e51c23;
+		}
+
+		.alert {
+			padding: 15px;
+			margin-bottom: 23px;
+			border: 1px solid transparent;
+			border-radius: 3px;
+		}
+
+		.alert h4 {
+			margin-top: 0;
+			color: inherit;
+		}
+
+		.alert>p {
+			margin-bottom: 0;
+		}
+
+		.alert>p+p {
+			margin-top: 5px;
+		}
+
+		.alert-success {
+			background-color: #dff0d8;
+			border-color: #d6e9c6;
+			color: #4caf50;
+		}
+
+		.alert-danger {
+			background-color: #e51c23;
+			border-color: #f7a4af;
+			color: #e51c23;
+		}
+
+		.alert-info {
+			background-color: #e1bee7;
+			border-color: #cba4dd;
+			color: #6c757d;
+		}
+
+		.alert-warning {
+			background-color: #ffe0b2;
+			border-color: #ffc599;
+			color: #ff9800;
+		}
+
+		.panel {
+			margin-bottom: 23px;
+			background-color: #ffffff;
+			border: 1px solid transparent;
+			border-radius: 3px;
+			-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+			box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+		}
+
+		.panel-body {
+			padding: 15px;
+		}
+
+		.panel-heading {
+			padding: 10px 15px;
+			border-bottom: 1px solid transparent;
+			border-top-right-radius: 2px;
+			border-top-left-radius: 2px;
+		}
+
+		.panel-title {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 15px;
+			color: inherit;
+		}
+
+		.panel-default {
+			border-color: #dddddd;
+		}
+
+		.panel-default>.panel-heading {
+			color: #212121;
+			background-color: #f5f5f5;
+			border-color: #dddddd;
+		}
+
+		.panel-success {
+			border-color: #d6e9c6;
+		}
+
+		.panel-success>.panel-heading {
+			color: #ffffff;
+			background-color: #4caf50;
+			border-color: #d6e9c6;
+		}
+
+		.panel-info {
+			border-color: #cba4dd;
+		}
+
+		.panel-info>.panel-heading {
+			color: #ffffff;
+			background-color: #6c757d;
+			border-color: #cba4dd;
+		}
+
+		.panel-warning {
+			border-color: #ffc599;
+		}
+
+		.panel-warning > .panel-heading {
+			color: #ffffff;
+			background-color: #ff9800;
+			border-color: #ffc599;
+		}
+
+		.panel-danger {
+			border-color: #f7a4af;
+		}
+
+		.panel-danger>.panel-heading {
+			color: #ffffff;
+			background-color: #e51c23;
+			border-color: #f7a4af;
+		}
+
+		.container:before,
+		.container:after,
+		.form-horizontal .form-group:before,
+		.form-horizontal .form-group:after,
+		.panel-body:before,
+		.panel-body:after {
+			content: " ";
+			display: table;
+		}
+
+		.container:after,
+		.form-horizontal .form-group:after,
+		.panel-body:after {
+			clear: both;
+		}
+
+		@-ms-viewport {
+			width: device-width;
+		}
+
+		.btn-default {
+			position: relative;
+		}
+
+		.btn-default:focus {
+			background-color: #ffffff;
+		}
+
+		.btn-default:hover,
+		.btn-default:active:hover {
+			background-color: #f0f0f0;
+		}
+
+		.btn-default:active {
+			-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+		}
+
+		.btn-default:after {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-image: -webkit-radial-gradient(circle, #444444 10%, transparent 10.01%);
+			background-image: -o-radial-gradient(circle, #444444 10%, transparent 10.01%);
+			background-image: radial-gradient(circle, #444444 10%, transparent 10.01%);
+			background-repeat: no-repeat;
+			-webkit-background-size: 1000% 1000%;
+			background-size: 1000% 1000%;
+			background-position: 50%;
+			opacity: 0;
+			pointer-events: none;
+			-webkit-transition: background .5s, opacity 1s;
+			-o-transition: background .5s, opacity 1s;
+			transition: background .5s, opacity 1s;
+		}
+
+		.btn-default:active:after {
+			-webkit-background-size: 0% 0%;
+			background-size: 0% 0%;
+			opacity: .2;
+			-webkit-transition: 0s;
+			-o-transition: 0s;
+			transition: 0s;
+		}
+
+		.btn-primary {
+			position: relative;
+		}
+
+		.btn-primary:focus {
+			background-color: #2196f3;
+		}
+
+		.btn-primary:hover,
+		.btn-primary:active:hover {
+			background-color: #0d87e9;
+		}
+
+		.btn-primary:active {
+			-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+		}
+
+		.btn-primary:after {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-image: -webkit-radial-gradient(circle, #ffffff 10%, transparent 10.01%);
+			background-image: -o-radial-gradient(circle, #ffffff 10%, transparent 10.01%);
+			background-image: radial-gradient(circle, #ffffff 10%, transparent 10.01%);
+			background-repeat: no-repeat;
+			-webkit-background-size: 1000% 1000%;
+			background-size: 1000% 1000%;
+			background-position: 50%;
+			opacity: 0;
+			pointer-events: none;
+			-webkit-transition: background .5s, opacity 1s;
+			-o-transition: background .5s, opacity 1s;
+			transition: background .5s, opacity 1s;
+		}
+
+		.btn-primary:active:after {
+			-webkit-background-size: 0% 0%;
+			background-size: 0% 0%;
+			opacity: .2;
+			-webkit-transition: 0s;
+			-o-transition: 0s;
+			transition: 0s;
+		}
+
+		.btn {
+			text-transform: uppercase;
+			border: none;
+			-webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+			box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+			-webkit-transition: all 0.4s;
+			-o-transition: all 0.4s;
+			transition: all 0.4s;
+		}
+
+		body {
+			-webkit-font-smoothing: antialiased;
+			letter-spacing: .1px;
+		}
+
+		p {
+			margin: 0 0 1em;
+		}
+
+		input,
+		button {
+			-webkit-font-smoothing: antialiased;
+			letter-spacing: .1px;
+		}
+
+		a {
+			-webkit-transition: all 0.2s;
+			-o-transition: all 0.2s;
+			transition: all 0.2s;
+		}
+
+		.table-hover>tbody>tr,
+		.table-hover>tbody>tr>td {
+			-webkit-transition: all 0.2s;
+			-o-transition: all 0.2s;
+			transition: all 0.2s;
+		}
+
+		label {
+			font-weight: normal;
+		}
+
+		input.form-control,
+		input[type=text],
+		[type=text].form-control {
+			padding: 0;
+			border: none;
+			border-radius: 0;
+			-webkit-appearance: none;
+			-webkit-box-shadow: inset 0 -1px 0 #dddddd;
+			box-shadow: inset 0 -1px 0 #dddddd;
+			font-size: 16px;
+		}
+
+		input.form-control:focus,
+		input[type=text]:focus,
+		[type=text].form-control:focus {
+			-webkit-box-shadow: inset 0 -2px 0 #2196f3;
+			box-shadow: inset 0 -2px 0 #2196f3;
+		}
+
+		select,
+		select.form-control {
+			border: 0;
+			border-radius: 0;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			padding-left: 0;
+			padding-right: 0\9;
+			background-image: url(data:image/png;
+			base64, iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEVmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmaP/QSjAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+			-webkit-background-size: 13px 13px;
+			background-size: 13px;
+			background-repeat: no-repeat;
+			background-position: right center;
+			-webkit-box-shadow: inset 0 -1px 0 #dddddd;
+			box-shadow: inset 0 -1px 0 #dddddd;
+			font-size: 16px;
+			line-height: 1.5;
+		}
+
+		select::-ms-expand,
+		select.form-control::-ms-expand {
+			display: none;
+		}
+
+		select:focus,
+		select.form-control:focus {
+			-webkit-box-shadow: inset 0 -2px 0 #2196f3;
+			box-shadow: inset 0 -2px 0 #2196f3;
+			background-image: url(data:image/png;
+			base64, iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEUhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISF8S9ewAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+		}
+
+		input[type="radio"] {
+			position: relative;
+			margin-top: 6px;
+			margin-right: 4px;
+			vertical-align: top;
+			border: none;
+			background-color: transparent;
+			-webkit-appearance: none;
+			appearance: none;
+			cursor: pointer;
+		}
+
+		input[type="radio"]:focus {
+			outline: none;
+		}
+
+		input[type="radio"]:before,
+		input[type="radio"]:after {
+			content: "";
+			display: block;
+			width: 18px;
+			height: 18px;
+			border-radius: 50%;
+			-webkit-transition: 240ms;
+			-o-transition: 240ms;
+			transition: 240ms;
+		}
+
+		input[type="radio"]:before {
+			position: absolute;
+			left: 0;
+			top: -3px;
+			background-color: #2196f3;
+			-webkit-transform: scale(0);
+			-ms-transform: scale(0);
+			-o-transform: scale(0);
+			transform: scale(0);
+		}
+
+		input[type="radio"]:after {
+			position: relative;
+			top: -3px;
+			border: 2px solid #666666;
+		}
+
+		input[type="radio"]:checked:before {
+			-webkit-transform: scale(0.5);
+			-ms-transform: scale(0.5);
+			-o-transform: scale(0.5);
+			transform: scale(0.5);
+		}
+
+		input[type="radio"]:disabled:checked:before {
+			background-color: #bbbbbb;
+		}
+
+		input[type="radio"]:checked:after {
+			border-color: #2196f3;
+		}
+
+		input[type="radio"]:disabled:after,
+		input[type="radio"]:disabled:checked:after {
+			border-color: #bbbbbb;
+		}
+
+		.alert {
+			border: none;
+			color: #fff;
+		}
+
+		.alert-success {
+			background-color: #4caf50;
+		}
+
+		.alert-info {
+			background-color: #6c757d;
+		}
+
+		.alert-warning {
+			background-color: #ff9800;
+		}
+
+		.panel {
+			border: none;
+			border-radius: 2px;
+			-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+			box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		}
+
+		.panel-heading {
+			border-bottom: none;
+		}
+
+		.align-middle {
+			vertical-align: middle !important;
+		}
+
+		/*! End Bootswatch */
+		em {
+			font-weight: 700;
+			font-style: italic;
+		}
+
+		em::before,
+		em::after {
+			content: "\""
+		}
+
+		ol,
+		p,
+		ul {
+			margin: 0 0 1rem 0;
+		}
+
+		ol,
+		p,
+		ul {
+			line-height: 1.5;
+		}
+
+		ol,
+		ul {
+			padding: 0;
+		}
+
+		ol li,
+		ul li {
+			margin-left: 1.125rem;
+		}
+
+		a {
+			color: #0080ff;
+			font-weight: 300;
+			text-decoration: none;
+		}
+
+		a:hover,
+		a:focus {
+			color: #0a6ebd;
+			text-decoration: underline;
+		}
+
+		a:focus {
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px;
+		}
+
+
+		ul {
+			list-style-type: square;
+		}
+
+		ol {
+			list-style-type: upper-roman;
+		}
+
+		h1 {
+			font-size: 4.0rem;
+			font-weight: 100;
+			color: #000;
+			letter-spacing: 1px;
+			margin: 3rem 0 1.5rem;
+			border-bottom: 1px solid #ddd;
+		}
+
+		h2 {
+			font-size: 2rem;
+			font-weight: 200;
+			margin: 2.25rem 0 1rem;
+			padding: 0.5rem 0 1rem;
+		}
+
+		h3 {
+			font-size: 1.5rem;
+			font-weight: 300;
+			color: #707070;
+			margin: 1.75rem 0 0.25rem 0;
+		}
+
+		h4 {
+			font-size: 1.25rem;
+			font-weight: 400;
+			margin: 1.25rem 0 0.25rem 0;
+			color: maroon;
+			font-variant: small-caps;
+		}
+
+		@media (max-width: 991px) {
+			h1 {
+				font-size: 3.5rem;
+			}
+
+			h2 {
+				font-size: 1.75rem;
+			}
+		}
+
+		@media (max-width: 767px) {
+			h1 {
+				font-size: 2.25rem;
+			}
+
+			h2 {
+				font-size: 1.5rem;
+			}
+
+			h3 {
+				font-size: 1.25rem;
+			}
+
+			h4 {
+				font-size: 1.125rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1 id="gallery-2-pre-installer">
+			The Gallery 2 Pre-Installer
+		</h1>
+		<h2 id="a-tiny-tool-to-put-gallery-2-on-your-webserver">
+			A Tiny Tool to Put Gallery 2 on your Webserver
+		</h2>
+		<p>
+			Installing Gallery 2 with the preinstaller on your webserver is as simple as:
+		</p>
+		<ol>
+			<li>
+				Download the Gallery 2 Pre-Installer and put a single file on your webserver
+			</li>
+			<li>
+				After two clicks, Gallery 2 is ready to be configured.
+			</li>
+		</ol>
+		<p>
+			This is a great alternative for users who do not have the option of extracting .zip or .tar files directly on the webserver.
+		</p>
+		<p>
+			<b>Note:</b> If you use the Gallery 2 Pre-Installer to get a Gallery 2 Instance onto your webserver, your files and folders <b>MAY</b> be owned by the <em>webserver user</em> and not by your account on the webserver. This can complicate upgrading to future versions but Gallery 2 ships with an easy to use tool that allows you to resolve this with a single click.
+		</p>
+		<p>
+			<a class="btn btn-primary" href="https://github.com/dakanji/G2Project-preinstaller/releases">Download Now!</a>
+		</p>
+		<h2 id="installation-instructions-usage">
+			Installation Instructions - Usage
+		</h2>
+		<ol>
+			<li>
+				Download the Gallery 2 Pre-Installer to your computer. <a href="https://github.com/dakanji/G2Project-preinstaller">GET IT HERE</a>
+			</li>
+			<li>
+				Extract the Gallery 2 Pre-Installer zip file.
+			</li>
+			<li>
+				Open the extracted preinstall.php in Wordpad, notepad or another texteditor.
+			</li>
+			<li>
+				Enter a passphrase at the top of the file.
+			</li>
+			<li>
+				Upload preinstall.php via FTP or another method to your webserver, e.g. to <em>http://www.example.com/preinstall.php</em>
+			</li>
+			<li>
+				Use your FTP program to change the permissions of the folder where preinstall.php is in to <em>777</em> (read+write+execute permission for everybody).
+			</li>
+			<li>
+				Browse with your webbrowser to the location where you have uploaded preinstall.php. In our example, that would be <em>http://www.example.com/preinstall.php</em>
+			</li>
+			<li>
+				Enter the password that you just added to preinstall.php in the web form when prompted.
+			</li>
+			<li>
+				Follow the on screen instructions.
+			</li>
+		</ol>
+		<h2 id="upgrading">
+			Upgrading
+		</h2>
+		<h3 id="upgrading-a-normal-installation-using-the-gallery-2-pre-installer">
+			Upgrading a normal installation using the Gallery 2 Pre-Installer
+		</h3>
+		<ol>
+			<li>
+				With your FTP program, move your Gallery 2 folder to e.g. gallery_old.
+			</li>
+			<li>
+				Use the preinstall.php script to get a Gallery 2 Instance onto your webserver.
+			</li>
+			<li>
+				If necessary, use the preinstall.php script to rename your Gallery 2 folder to e.g. gallery.
+			</li>
+			<li>
+				Copy config.php and .htaccess to your new gallery folder.
+			</li>
+			<li>
+				Run the upgrader as usual (browse to your gallery, it will start automatically).
+			</li>
+		</ol>
+		<h3 id="upgrading-a-gallery-2-instance-installed-with-the-gallery-2-pre-installer">
+			Upgrading a Gallery 2 Instance Installed with the Gallery 2 Pre-Installer
+		</h3>
+		<ol>
+			<li>
+				Use the chmod tool of your Gallery 2 Instance (<em>http://www.example.com/gallery2/lib/support/index.php?chmod</em>) to prepare your gallery folder for the upgrade (open up the filesystem permissions).
+			</li>
+			<li>
+				Put the preinstall.php script into the same folder as your Gallery 2 Instance (not into <em>gallery2/main.php</em>. Put it one folder higher.)
+			</li>
+			<li>
+				If your Gallery folder is not <em>gallery2</em>, use the preinstall.php script to rename your old Gallery folder to Gallery 2
+			</li>
+			<li>
+				Use the preinstall.php script to get the latest Gallery 2 version onto server. (Download)
+			</li>
+			<li>
+				Use the preinstall.php script to extract the new version over your existing gallery2 folder.
+			</li>
+			<li>
+				Use preinstall.php to rename <em>gallery2</em> to your original folder name, if you had a different name.
+			</li>
+			<li>
+				Delete preinstall.php (leaving it on your server poses a security risk).
+			</li>
+			<li>
+				Run the upgrader as usual (browse to your gallery, it will start automatically).
+			</li>
+			<li>
+				Use the chmod tool (lib/support/) to secure your Gallery 2 folder again. Maybe also click <em>fix Gallery Storage folder</em> after securing the Gallery folder.
+			</li>
+		</ol>
+		<h3 id="switching-from-a-gallery-2-instance-installed-with-the-gallery-2-pre-installer-to-a-standard-installation">
+			Switching from a Gallery 2 Instance Installed with the Gallery 2 Pre-Installer to a Standard Installation
+		</h3>
+		<ol>
+			<li>
+				NB: You can skip these instructions if you are running PHP-CGI or PHP-FPM. With these PHP modes, your site will already have been configured ready to accept updates.
+			</li>
+			<li>
+				Use the chmod tool of your Gallery 2 Instance (<em>http://www.example.com/gallery2/lib/support/index.php?chmod</em>) to prepare your gallery folder for the upgrade (open up the filesystem permissions).
+			</li>
+			<li>
+				Rename your Gallery 2 folder to something like "gallery_old"
+			</li>
+			<li>
+				Put your new Gallery 2 folder on the webserver with whatever <em>non-Pre-Installer</em> method since you want to get rid of a <em>server-owned</em> Gallery 2 Instance.
+			</li>
+			<li>
+				Copy config.php and .htaccess from your old to your new Gallery 2 folder.
+			</li>
+			<li>
+				If the new Gallery 2 folder is also a new version of Gallery 2, run the upgrader.
+			</li>
+			<li>
+				Make sure everything is working when using your new folder.
+			</li>
+			<li>
+				If so, you can now safely delete your old <em>gallery_old</em> folder.
+			</li>
+		</ol>
+		<h2 id="faq">FAQ</h2>
+		<h3 id="which-transfer-method-should-i-choose">
+			Which transfer method should I choose?
+		</h3>
+		<p>All of them work. If available, choose <em>Curl</em> or <em>wget</em> since they are pretty efficient. Fsockopen and fopen on the other hand are better if the transfer takes a long time and wget and cURL time out for you.
+		</p>
+		<h3 id="which-extract-method-should-i-choose">
+			Which extract method should I choose?
+		</h3>
+		<p>
+			If available, go with any of the zip methods or with the PHP based tar. The tar binary could have some problems with very long paths.
+		</p>
+		<h3 id="where-is-the-chmod-tool-in-gallery-2">
+			Where is the chmod tool in Gallery 2?
+		</h3>
+		<p>
+			The tool to change file permissions (<em>change mode</em>, or in short, <em>chmod</em>) is in <em>http://www.example.com/gallery2/lib/support/index.php?chmod</em>.
+		</p>
+		<p>
+			Also see: <a href="#how-can-i-fix-the-filesystem-permissions-of-the-gallery-storage-folder">How can I fix the filesystem permissions of the Gallery storage folder?</a>
+		</p>
+		<h3 id="how-can-i-upload-a-theme-or-module-via-ftp-when-i-used-the-gallery-2-pre-iinstaller">How can I upload a theme or module via FTP when I used the Gallery 2 Pre-Iinstaller?
+		</h3>
+		<p>
+			If you installed Gallery 2 with the Gallery 2 Pre-Installer, you need to first open the <em>modules/</em> and <em>themes/</em> directory for access before you can upload a theme or module manually yourself.
+		</p>
+		<ol>
+			<li>
+				Go to your site, sign in with your Gallery 2 setup password and follow the <em>Filesystem Permissions</em> link.
+			</li>
+			<li>
+				Click on "Add a new module or theme (make modules/ and themes/ writeable)" to open up your <em>themes/</em> and <em>modules/</em> folders.
+			</li>
+			<li>
+				Now you can upload your theme or module via FTP.
+			</li>
+			<li>
+				Finally do not forget to <em>close</em> the <em>themes/</em> and <em>modules/</em> folders again on the "Filesystem Permissions" page.
+			</li>
+		</ol>
+		<ul>
+			<li>
+				Note that you can fetch new modules and themes directly via the Site Admin -&gt; Plugins page. FTP is not needed unless for modules and themes that are not in the available repositories.
+			</li>
+		</ul>
+		<h3 id="the-chmod-tool-does-not-work-whats-wrong">
+			The chmod tool does not work, what's wrong?
+		</h3>
+		<p>
+			The chmod tool can only change the filesystem permissions of files and folders that are owned by the webserver. Probably, some or all of your files / folders are owned by your account. If you don't use the Gallery 2 Pre-Installer anyway, just forget about the chmod tool. Probably you don't need it.
+		</p>
+		<p>
+			If you are a Gallery 2 Pre-Installer user and need it to work, ask your web hosting provider to run <em>chown -R www /path/to/your/gallery/</em> since maybe your web hosting provider accidentally changed the owner when restoring a backup or because they thought that was the right thing to do.
+		</p>
+		<h3 id="how-can-i-fix-the-filesystem-permissions-of-the-gallery-storage-folder">
+			How can I fix the filesystem permissions of the Gallery storage folder?
+		</h3>
+		<p>
+			Usually you get either an ERROR_PLATFORM_FAILURE or the upgrade wizard reports that the filesystem permissions are wrong for your storage folder, i.e. it can't write to all files and subfolders in that folder anymore.
+		</p>
+		<ul>
+			<li>
+				To fix the problem, you can try the <em>Fix the storage folder</em> (make it writeable) tool in <em>http://www.example.com/gallery2/lib/support/</em> on the <em>Filesystem Permissions</em> page.
+			</li>
+			<li>
+				You can also try to change the permissions to <em>777</em> (read/write for everyone) with your FTP program. If all fails, please ask in the forum for help such that we can verify that it is indeed a filesystem permissions problem. If it actually is one, you'll have to ask your web hosting provider to change the filesystem permissions <em>recursively</em> for you (e.g. chmod -R 777 g2data).
+			</li>
+			<li>
+				What might help is removing all cached data from the storage folder. Please see Gallery 2 FAQ: <a href="http://codex.galleryproject.org/G2:FAQ#How_can_I_clear_cached_data.3F" rel="nofollow">How can I clear cached data?</a>
+			</li>
+			<li>
+				A common issue is:
+				<pre>
+Error (ERROR_PLATFORM_FAILURE) :
+in modules/core/classes/GalleryTemplate.class at line 123 (gallerycoreapi::error)
+in modules/core/classes/GalleryTemplate.class at line 456 (gallerytemplate::_initcompiledtemplatedir)
+				</pre>
+				In such cases, if the above suggestions do not help, delete <em>g2data/smarty/templates_c/</em> folder via FTP or whatever tool you use to upload / manage files on your website.
+			</li>
+			<li>
+				If the problem is not resolved or reappears after a while, ask your web hosting provider whether there are any scripts that change the owner of the files to the account owner.
+			</li>
+		</ul>
+	<div>
+</body>
+</html>
