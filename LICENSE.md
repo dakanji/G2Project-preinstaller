@@ -1,4 +1,4 @@
-**Gallery - a web based photo album viewer and editor**
+**The Gallery 2 Pre-Installer**
 -------------------------------------------------------
 
 **Copyright (c) 2000-2008 Bharat Mediratta**
