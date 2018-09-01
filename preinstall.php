@@ -38,7 +38,7 @@ set_time_limit(900);
 
 // ---------------------- P A S S P H R A S E
 // Enter a one time passphrase with at least 6 characters
-$passPhrase = '123456';
+$passPhrase = '';
 
 
 // ---------------------- C L A S S E S
