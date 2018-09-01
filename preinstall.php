@@ -71,6 +71,9 @@ class preInstallerConfig {
 	// PHP allow_url_fopen status
 	public $allowFOpen = false;
 
+	// Implementation Stage
+	public $stuckOnTwo = false;
+	
 	public function __construct() {
 		if (ini_get('allow_url_fopen')) {
 			$this->allowFOpen = true;
@@ -213,8 +216,8 @@ class preInstaller {
 			$page->render(
 				'results',
 				array(
-					'failure' => "Server Folder: <em>dirname(__FILE__)</em> is not writeable",
-					'fix'     => 'ftp > chmod 777 ' . basename(dirname(__FILE__)),
+					'failure' => 'Server Folder: <em>' . __DIR__ . '</em> is not writeable',
+					'fix'     => 'ftp > chmod 777 ' . basename(__DIR__),
 				)
 			);
 		}
@@ -269,8 +272,7 @@ class preInstaller {
 					$method = new $downloader();
 
 					if ($method->isSupported()) {
-						$archiveName = dirname(__FILE__) . '/' . $config->archiveBaseName
-						. '.' . $extension;
+						$archiveName = __DIR__ . '/' . $config->archiveBaseName . '.' . $extension;
 
 						// Delete previous versions with the same file name
 						// Just in case someone tries to download multiple times
@@ -341,7 +343,7 @@ class preInstaller {
 					$method = new $extractor();
 
 					if ($method->isSupported()) {
-						$archiveName = dirname(__FILE__) . '/' .
+						$archiveName = __DIR__ . '/' .
 						$config->archiveBaseName . '.' . $method->getSupportedExtension();
 
 						if (file_exists($archiveName)) {
@@ -378,7 +380,7 @@ class preInstaller {
 										}
 
 										// Set the permissions
-										@chmod(dirname(__FILE__) . '/' . $folderName, $folderPerm);
+										@chmod(__DIR__ . '/' . $folderName, $folderPerm);
 									}
 
 									// Render the results
@@ -449,7 +451,7 @@ class preInstaller {
 						)
 					);
 				}
-				$folderName = dirname(__FILE__) . '/' . $folderName;
+				$folderName = __DIR__ . '/' . $folderName;
 
 				if (!file_exists($folderName)) {
 					$page->render(
@@ -525,9 +527,9 @@ class preInstaller {
 					);
 				}
 
-				$folderNamePath    = dirname(__FILE__) . '/' . $folderName;
+				$folderNamePath    = __DIR__ . '/' . $folderName;
 				$oldFolderName     = $this->findGallery2Folder();
-				$oldFolderNamePath = dirname(__FILE__) . '/' . $oldFolderName;
+				$oldFolderNamePath = __DIR__ . '/' . $oldFolderName;
 				if (empty($oldFolderName) || !file_exists($oldFolderNamePath)) {
 					$page->render(
 						'results',
@@ -574,9 +576,10 @@ class preInstaller {
 				if (!empty($capabilities['gallery2FolderName'])) {
 					$statusMessage = 'Ready for installation (Gallery 2 Folder: <em>' . $capabilities['gallery2FolderName'] . '</em> found)';
 				} elseif (!empty($capabilities['anyArchiveExists'])) {
-					$statusMessage = 'Gallery 2 Archive Detected in Current Server Folder<br><br>Please Continue with Implementation Step 2';
+					$statusMessage = 'Gallery 2 Archive Detected in Current Server Folder<br><br>Please Continue with Implementation Step 2: <em>Extraction Methods</em>';
+					$config->stuckOnTwo = true;
 				} else {
-					$statusMessage = 'Gallery 2 Archive not Detected in Current Server Folder<br><br>Please Start with Implementation Step 1';
+					$statusMessage = 'Gallery 2 Archive not Detected in Current Server Folder<br><br>Please Start with Implementation Step 1: <em>Transfer Methods</em>';
 				}
 				$capabilities['statusMessage'] = $statusMessage;
 
@@ -637,7 +640,7 @@ class preInstaller {
 
 		foreach ($this->_extractMethods as $method) {
 			$archiveName      = $config->archiveBaseName . '.' . $method->getSupportedExtension();
-			$archiveExists    = file_exists(dirname(__FILE__) . '/' . $archiveName);
+			$archiveExists    = file_exists(__DIR__ . '/' . $archiveName);
 			$isSupported      = $method->isSupported();
 			$extractMethods[] = array(
 				'isSupported'   => $isSupported,
@@ -682,7 +685,7 @@ class preInstaller {
 		global $server;
 
 		// Search in the current folder for a gallery2 folder
-		$latestPathAll = dirname(__FILE__) . '/';
+		$latestPathAll = __DIR__ . '/';
 
 		if (file_exists($latestPathAll . 'gallery2')
 			&& file_exists($latestPathAll . 'gallery2/install/index.php')
@@ -832,7 +835,7 @@ class serverPlatform {
 
 	// Check if we can write to this directory (download, extract)
 	public function isDirectoryWritable() {
-		return is_writable(dirname(__FILE__));
+		return is_writable(__DIR__);
 	}
 
 	public function extendTimeLimit() {
@@ -1365,7 +1368,9 @@ class htmlPage {
 					<h3 class="panel-title">Please complete the security check to proceed.</h3>
 				</div>
 				<div class="panel-body">
-					You must enter a setup passphrase in this script file to run the preinstaller.
+					You must enter a setup passphrase to run the preinstaller.
+					<br>
+					This is in the "PASSPHRASE" section at the top of this script file.
 				</div>
 			</div>';
 		} elseif ($renderType == 'passwordTooShort') {
@@ -1389,14 +1394,14 @@ class htmlPage {
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Please enter the setup passphrase</h3>
-					This is stored in the config section at the top of this script file.
+					This is stored in the "PASSPHRASE" section at the top of this script file.
 				</div>
 				<div class="panel-body">
 					<form class="form-horizontal" id="loginForm" method="post">
 						<fieldset>
 							<legend>Verification Form</legend>
 							<div class="form-group">
-								<label for="g2_password" class="col-xs-6 col-sm-4 control-label">Password:</label>
+								<label for="g2_password" class="col-xs-6 col-sm-4 control-label">PassPhrase:</label>
 								<div class="col-xs-6 col-sm-8">
 									<input class="form-control" name="g2_password" id="g2_password" placeholder="' . $folderName . '" type="password">
 								</div>
@@ -1766,7 +1771,7 @@ class htmlPage {
 				if (!$available) {
 					echo '
 				<div class="alert alert-info">
-					Transfer the Gallery 2 Archive First (Step 1)
+					Please Transfer the Gallery 2 Archive First (Step 1)
 				</div>';
 				} else {
 					echo '
@@ -1831,10 +1836,17 @@ class htmlPage {
 					<a href="' . $folderName . '/install/index.php" class="btn btn-primary">Install Gallery 2</a>
 				</div>';
 			} else {
-				echo '
+				if ($config->stuckOnTwo) {
+					echo '
 				<div class="alert alert-info">
-					Transfer and Extract the Gallery 2 Archive First (Steps 1 and 2)
+					Please Extract the Gallery 2 Archive First (Step 2)
 				</div>';
+				} else {
+					echo '
+				<div class="alert alert-info">
+					Please Transfer and Extract the Gallery 2 Archive First (Steps 1 and 2)
+				</div>';
+				}
 			}
 
 			echo '
