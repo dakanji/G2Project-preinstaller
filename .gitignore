@@ -11,10 +11,6 @@ Thumbs.db
 # style guide #
 ##############
 .php_cs.cache
-.php_cs.dist
-phpcsWPCSLoader.php
-phpcs.xml
-wpcs
 
 # Misc Stuff #
 ##############
