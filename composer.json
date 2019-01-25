@@ -1,16 +1,16 @@
 {
-    "name": "dayo/G2Project-modules",
+    "name": "dayo/g2project-preinstaller",
     "description": "Community Update of Gallery2 - A web based photo album viewer and editor",
     "type": "project",
-    "license": "GPL v2",
+    "license": "GPL-2.0",
     "authors": [
         {
             "name": "Contributors",
-            "homepage": "https://github.com/dakanji/G2Project-modules/graphs/contributors"
+            "homepage": "https://github.com/dakanji/G2Project-preinstaller/graphs/contributors"
         }
     ],
     "support": {
-        "issues": "https://github.com/dakanji/G2Project-modules/issues"
+        "issues": "https://github.com/dakanji/G2Project-preinstaller/issues"
     },
     "config": {
     	"vendor-dir": "dev_vendor"
@@ -30,7 +30,7 @@
     },
     "scripts": {
         "post-update-cmd": [
-            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/symlink.sh && ./dev_scripts/symlink.sh"
+            "chmod +x ./dev_scripts/hooks/pre-commit && chmod +x ./dev_scripts/setup.sh && ./dev_scripts/setup.sh"
         ]
     }
 }
