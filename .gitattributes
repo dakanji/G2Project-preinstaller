@@ -6,11 +6,15 @@
 /.gitignore export-ignore
 /.php_cs.cache export-ignore
 /.php_cs.dist export-ignore
+/.svn export-ignore
+/.svnignore export-ignore
 /LICENSE.md export-ignore
 /phpcs.xml export-ignore
-/phpcsWPCSLoader.php export-ignore
 /README.md export-ignore
-/wpcs export-ignore
+/dev_vendor export-ignore
+/composer.json export-ignore
+/composer.lock export-ignore
+/dev_scrpts export-ignore
 
 #
 # Auto detect text files and perform LF normalization
@@ -22,4 +26,5 @@
 # The above will handle all files NOT found below
 #
 *.php text
-*.html text
+*.inc text
+*.class text

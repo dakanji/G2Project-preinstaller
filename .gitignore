@@ -1,4 +1,4 @@
-# OS generated files #
+## OS generated files #
 ######################
 .DS_Store
 .DS_Store?
@@ -8,9 +8,42 @@
 ehthumbs.db
 Thumbs.db
 
+# svn folder #
+##############
+**/.svn
+
 # style guide #
 ##############
 .php_cs.cache
+dev_vendor
+
+# G2 Stuff #
+############
+g2data/
+config.php
+/.htaccess
+authFile.txt
+login.txt
+index.php
+main.php
+embed.php
+bootstrap.inc
+init.inc
+README.html
+MANIFEST
+lib/
+images/
+install/
+locale/
+themes/
+upgrade/
+modules/
+
+# IDE stuff #
+##############
+.idea
+build
+attic
 
 # Misc Stuff #
 ##############
