@@ -20,9 +20,9 @@
 
 /**
  * Script to:
- *	- download the gallery2.zip / tar.gz from a known server directly to the
- *	server where the script is running.
- *	- extract the gallery2.zip / tar.gz archive directly on the server
+ *  - download the gallery2.zip / tar.gz from a known server directly to the
+ *  server where the script is running.
+ *  - extract the gallery2.zip / tar.gz archive directly on the server
  * @package Preinstaller
  * @author: Andy Staudacher <ast@gmx.ch>
  * @version $Revision: 20999 $
@@ -73,22 +73,22 @@ class preInstallerConfig {
 
 	// Implementation Stage
 	public $stuckOnTwo = false;
-	
+
 	public function __construct() {
 		if (ini_get('allow_url_fopen')) {
 			$this->allowFOpen = true;
 
 			// Get Releases from Github Repo
-			$url = "https://api.github.com/repos/$this->g2Repo/releases";
-			$opts = array(
+			$url      = "https://api.github.com/repos/$this->g2Repo/releases";
+			$opts     = array(
 				'http' => array(
 					'method' => 'GET',
 					'header' => array(
-						"User-Agent: GalleryProject-Preinstaller",
+						'User-Agent: G2Project-Preinstaller',
 					),
 				),
 			);
-			$json = file_get_contents($url, false, stream_context_create($opts));
+			$json     = file_get_contents($url, false, stream_context_create($opts));
 			$releases = json_decode($json);
 		}
 
@@ -166,14 +166,14 @@ class preInstallerConfig {
 
 			switch ($order) {
 				case SORT_ASC:
-				asort($sortable_array);
+					asort($sortable_array);
 
-				break;
+					break;
 
 				case SORT_DESC:
-				arsort($sortable_array);
+					arsort($sortable_array);
 
-				break;
+					break;
 			}
 
 			foreach ($sortable_array as $k => $v) {
@@ -251,7 +251,7 @@ class preInstaller {
 					$page->render(
 						'results',
 						array(
-							'failure' => 'Filetype for download not defined. Please retry'
+							'failure' => 'Filetype for download not defined. Please retry',
 						)
 					);
 				}
@@ -365,10 +365,11 @@ class preInstaller {
 									if ($folderName) {
 										// Get the php_sapi
 										$sapi_type = php_sapi_name();
+
 										if ((substr($sapi_type, 0, 3) == 'cgi')
 											|| (substr($sapi_type, 0, 3) == 'fpm')
 										) {
-										    // We are using PHP CGI/FPM
+											// We are using PHP CGI/FPM
 											// So set permissions to 0755
 											$folderPerm = '0755';
 											$infoString = 'Folder permissions have been set to <em>0755</em> (Read/Write for "Owner" and Read Only for Others) as we are using PHP CGI/FPM';
@@ -394,7 +395,9 @@ class preInstaller {
 							} else {
 								$page->render(
 									'results',
-									array('failure' => $results)
+									array(
+										'failure' => $results,
+									)
 								);
 							}
 						} else {
@@ -438,7 +441,7 @@ class preInstaller {
 					$page->render(
 						'results',
 						array(
-							'failure' => "Please type in a folder name",
+							'failure' => 'Please type in a folder name',
 						)
 					);
 				}
@@ -472,7 +475,7 @@ class preInstaller {
 				if (in_array($folderPermissions, $config->folderPermissionList)) {
 					$permissionsLong = (string)('0' . (int)$folderPermissions);
 
-					if ($permissionsLong === substr(sprintf("%o",fileperms($folderName)),-4)) {
+					if ($permissionsLong === substr(sprintf('%o', fileperms($folderName)), -4)) {
 						$page->render(
 							'results',
 							array(
@@ -530,6 +533,7 @@ class preInstaller {
 				$folderNamePath    = __DIR__ . '/' . $folderName;
 				$oldFolderName     = $this->findGallery2Folder();
 				$oldFolderNamePath = __DIR__ . '/' . $oldFolderName;
+
 				if (empty($oldFolderName) || !file_exists($oldFolderNamePath)) {
 					$page->render(
 						'results',
@@ -576,7 +580,7 @@ class preInstaller {
 				if (!empty($capabilities['gallery2FolderName'])) {
 					$statusMessage = 'Ready for installation (Gallery 2 Folder: <em>' . $capabilities['gallery2FolderName'] . '</em> found)';
 				} elseif (!empty($capabilities['anyArchiveExists'])) {
-					$statusMessage = 'Gallery 2 Archive Detected in Current Server Folder<br><br>Please Continue with Implementation Step 2: <em>Extraction Methods</em>';
+					$statusMessage      = 'Gallery 2 Archive Detected in Current Server Folder<br><br>Please Continue with Implementation Step 2: <em>Extraction Methods</em>';
 					$config->stuckOnTwo = true;
 				} else {
 					$statusMessage = 'Gallery 2 Archive not Detected in Current Server Folder<br><br>Please Start with Implementation Step 1: <em>Transfer Methods</em>';
@@ -587,7 +591,7 @@ class preInstaller {
 				if (!empty($capabilities['transferMethods'])) {
 					foreach ($capabilities['transferMethods'] as $dMethod) {
 						if ($dMethod['isSupported']) {
-							$capabilities['showTagRelease'] = $this->shouldShowTagRelease();
+							$capabilities['showTagRelease']    = $this->shouldShowTagRelease();
 							$capabilities['showStableRelease'] = $this->shouldShowStableRelease();
 
 							break;
@@ -624,7 +628,12 @@ class preInstaller {
 
 				return true;
 			}
-			$page->render('passwordForm', array('incorrectPassword' => 1));
+			$page->render(
+				'passwordForm',
+				array(
+					'incorrectPassword' => 1,
+				)
+			);
 		}
 		$page->render('passwordForm');
 	}
@@ -994,13 +1003,16 @@ class FsockopenDownloader extends DownloadMethod {
 		$start = time();
 
 		// Read the web file into a buffer
-		$ok = fwrite($fd, sprintf(
-			"GET %s HTTP/1.0\r\n" .
-			"Host: %s\r\n" .
-			"\r\n",
-			$get,
-			$components['host']
-		));
+		$ok = fwrite(
+			$fd,
+			sprintf(
+				"GET %s HTTP/1.0\r\n" .
+				"Host: %s\r\n" .
+				"\r\n",
+				$get,
+				$components['host']
+			)
+		);
 
 		if (!$ok) {
 			return 'Transfer request failed (fwrite)';
@@ -1321,7 +1333,7 @@ class PhpUnzipExtractor {
 			'zip_close',
 			'zip_entry_close',
 		)
-		as $functionName) {
+ as $functionName) {
 			if (!$server->isPhpFunctionSupported($functionName)) {
 				return false;
 			}
@@ -1338,7 +1350,7 @@ class PhpUnzipExtractor {
 class htmlPage {
 	public function render($renderType, $args = array()) {
 		global $config;
-		$self = basename(__FILE__);
+		$self          = basename(__FILE__);
 		$deleteWarning = '
 		<div class="alert alert-danger">
 			<h4>Delete this Script File when Done</h4>
@@ -1622,28 +1634,28 @@ class htmlPage {
 						<span class="text-info">Type:</span>
 						<table class="table table-striped table-hover">';
 
-						$first = true;
+				$first = true;
 
-						foreach ($args['extensions'] as $ext => $supported) {
-							$disabled = empty($supported) ? "disabled='true'" : '';
-							$message  = empty($supported) ? '<span class="label label-danger">Not Supported</span>' : '&nbsp;';
-							$checked  = '';
+				foreach ($args['extensions'] as $ext => $supported) {
+					$disabled = empty($supported) ? "disabled='true'" : '';
+					$message  = empty($supported) ? '<span class="label label-danger">Not Supported</span>' : '&nbsp;';
+					$checked  = '';
 
-							if ($first && $supported) {
-								$checked = 'checked';
-								$first   = false;
-							}
-							printf(
-									'<tr><td><input type="radio" name="extension" value="%s" %s %s/></td><td>%s</td><td>%s</td></tr>',
-									$ext,
-									$disabled,
-									$checked,
-									strtoupper($ext) . ' File',
-									$message
-								);
-						}
+					if ($first && $supported) {
+						$checked = 'checked';
+						$first   = false;
+					}
+					printf(
+						'<tr><td><input type="radio" name="extension" value="%s" %s %s/></td><td>%s</td><td>%s</td></tr>',
+						$ext,
+						$disabled,
+						$checked,
+						strtoupper($ext) . ' File',
+						$message
+					);
+				}
 
-						echo '
+				echo '
 						</table>
 						<span class="text-info">Method:</span>
 						<table class="table table-striped table-hover">';
@@ -1660,13 +1672,13 @@ class htmlPage {
 						$first   = false;
 					}
 					printf(
-							'<tr><td><input type="radio" name="method" %s value="%s" %s/></td><td>%s</td><td>%s</td></tr>',
-							$disabled,
-							$method['command'],
-							$checked,
-							$method['name'],
-							$notSupported
-						);
+						'<tr><td><input type="radio" name="method" %s value="%s" %s/></td><td>%s</td><td>%s</td></tr>',
+						$disabled,
+						$method['command'],
+						$checked,
+						$method['name'],
+						$notSupported
+					);
 				}
 
 				echo '
@@ -1801,9 +1813,9 @@ class htmlPage {
 					computer and upload the files and folders to your site via FTP.
 				</div>';
 			}
-			$arbiter = $startPoint == 'Step 3' ? true : false;
-			$label   = $arbiter ? 'Hide ' : 'Show ';
-			$display = $arbiter ? '' : 'style="display: none;"';
+			$arbiter    = $startPoint == 'Step 3' ? true : false;
+			$label      = $arbiter ? 'Hide ' : 'Show ';
+			$display    = $arbiter ? '' : 'style="display: none;"';
 			$folderName = empty($args['gallery2FolderName']) ? 'gallery2' : $args['gallery2FolderName'];
 
 			echo '
@@ -2018,8 +2030,8 @@ class htmlPage {
 	</body>
 </html>';
 
-	// We always exit after rendering
-	exit;
+		// We always exit after rendering
+		exit;
 	}
 
 	public function getCSS() {
@@ -3181,588 +3193,587 @@ class htmlPage {
 }
 
 	// ---------- START 3rd Party code for tar.gz extraction ---------------------
-	class tarArchiveHandler {
-		// --------------------------------------------------------------------------------
-		// PhpConcept Library - Tar Module 1.3
-		// --------------------------------------------------------------------------------
-		// License GNU/GPL - Vincent Blavet - August 2001
-		// http://www.phpconcept.net
-		// --------------------------------------------------------------------------------
-		// Note:
-		//  Small changes have been made by Andy Staudacher <ast@gmx.ch> to incorporate
-		//  the code in this script. Code to create new archives has been removed,
-		//  we only need to extract archives. Date: 03 Feb 2006
-		//
-		//  Additional changes by Dayo Akanji to wrap this in a class. Date: 29 June 2018
-		// --------------------------------------------------------------------------------
+class tarArchiveHandler {
+	// --------------------------------------------------------------------------------
+	// PhpConcept Library - Tar Module 1.3
+	// --------------------------------------------------------------------------------
+	// License GNU/GPL - Vincent Blavet - August 2001
+	// http://www.phpconcept.net
+	// --------------------------------------------------------------------------------
+	// Note:
+	//  Small changes have been made by Andy Staudacher <ast@gmx.ch> to incorporate
+	//  the code in this script. Code to create new archives has been removed,
+	//  we only need to extract archives. Date: 03 Feb 2006
+	//
+	//  Additional changes by Dayo Akanji to wrap this in a class. Date: 29 June 2018
+	// --------------------------------------------------------------------------------
 
-		// --------------------------------------------------------------------------------
-		// Function : PclTarExtract()
-		// Description :
-		//   Extract all the files present in the archive $p_tarname, in the directory
-		//   $p_path. The relative path of the archived files are kept and become
-		//   relative to $p_path.
-		//   If a file with the same name already exists, it will be replaced.
-		//   If the path to the file does not exist, it will be created.
-		//   Depending on the $p_tarname extension (.tar, .tar.gz or .tgz) the
-		//   function will determine the type of the archive.
-		// Parameters :
-		//   $p_tarname : Name of an existing tar file.
-		//   $p_path : Path where the files will be extracted. The files will use
-		//          their memorized path from $p_path.
-		//          If $p_path is "", files will be extracted in "./".
-		//   $p_remove_path : Path to remove (from the file memorized path) while writing the
-		//                  extracted files. If the path does not match the file path,
-		//                  the file is extracted with its memorized path.
-		//                  $p_path and $p_remove_path are commulative.
-		//   $p_mode : 'tar' or 'tgz', if not set, will be determined by $p_tarname extension
-		// Return Values :
-		//   Same as PclTarList()
-		// --------------------------------------------------------------------------------
-		public function PclTarExtract($p_tarname, $p_path = './', $p_remove_path = '', $p_mode = '') {
-			$v_result = 1;
+	// --------------------------------------------------------------------------------
+	// Function : PclTarExtract()
+	// Description :
+	//   Extract all the files present in the archive $p_tarname, in the directory
+	//   $p_path. The relative path of the archived files are kept and become
+	//   relative to $p_path.
+	//   If a file with the same name already exists, it will be replaced.
+	//   If the path to the file does not exist, it will be created.
+	//   Depending on the $p_tarname extension (.tar, .tar.gz or .tgz) the
+	//   function will determine the type of the archive.
+	// Parameters :
+	//   $p_tarname : Name of an existing tar file.
+	//   $p_path : Path where the files will be extracted. The files will use
+	//          their memorized path from $p_path.
+	//          If $p_path is "", files will be extracted in "./".
+	//   $p_remove_path : Path to remove (from the file memorized path) while writing the
+	//                  extracted files. If the path does not match the file path,
+	//                  the file is extracted with its memorized path.
+	//                  $p_path and $p_remove_path are commulative.
+	//   $p_mode : 'tar' or 'tgz', if not set, will be determined by $p_tarname extension
+	// Return Values :
+	//   Same as PclTarList()
+	// --------------------------------------------------------------------------------
+	public function PclTarExtract($p_tarname, $p_path = './', $p_remove_path = '', $p_mode = '') {
+		$v_result = 1;
 
-			// ----- Extract the tar format from the extension
-			if (($p_mode == '') || (($p_mode != 'tar') && ($p_mode != 'tgz'))) {
-				if (($p_mode = $this->PclTarHandleExtension($p_tarname)) == '') {
-					return 'Extracting tar/gz failed, cannot handle extension';
-				}
+		// ----- Extract the tar format from the extension
+		if (($p_mode == '') || (($p_mode != 'tar') && ($p_mode != 'tgz'))) {
+			if (($p_mode = $this->PclTarHandleExtension($p_tarname)) == '') {
+				return 'Extracting tar/gz failed, cannot handle extension';
 			}
-
-			// ----- Call the extracting fct
-			$p_list = array();
-
-			if (($v_result = $this->PclTarHandleExtract($p_tarname, 0, $p_list, 'complete', $p_path, $p_mode, $p_remove_path)) != 1) {
-				return 'Extracting tar.gz failed';
-			}
-
-			return true;
 		}
 
-		// --------------------------------------------------------------------------------
-		// Function : PclTarHandleExtract()
-		// Description :
-		// Parameters :
-		//   $p_tarname : Filename of the tar (or tgz) archive
-		//   $p_file_list : An array which contains the list of files to extract, this
-		//              array may be empty when $p_mode is 'complete'
-		//   $p_list_detail : An array where will be placed the properties of  each extracted/listed file
-		//   $p_mode : 'complete' will extract all files from the archive,
-		//          'partial' will look for files in $p_file_list
-		//          'list' will only list the files from the archive without any extract
-		//   $p_path : Path to add while writing the extracted files
-		//   $p_tar_mode : 'tar' for GNU TAR archive, 'tgz' for compressed archive
-		//   $p_remove_path : Path to remove (from the file memorized path) while writing the
-		//                  extracted files. If the path does not match the file path,
-		//                  the file is extracted with its memorized path.
-		//                  $p_remove_path does not apply to 'list' mode.
-		//                  $p_path and $p_remove_path are commulative.
-		// Return Values :
-		// --------------------------------------------------------------------------------
-		private function PclTarHandleExtract($p_tarname, $p_file_list, &$p_list_detail, $p_mode, $p_path, $p_tar_mode, $p_remove_path) {
-			global $server;
+		// ----- Call the extracting fct
+		$p_list = array();
 
-			$v_result      = 1;
-			$v_nb          = 0;
-			$v_extract_all = true;
-			$v_listing     = false;
+		if (($v_result = $this->PclTarHandleExtract($p_tarname, 0, $p_list, 'complete', $p_path, $p_mode, $p_remove_path)) != 1) {
+			return 'Extracting tar.gz failed';
+		}
 
-			// ----- Check the path
-			/*
-			 * if (($p_path == "") || ((substr($p_path, 0, 1) != "/") && (substr($p_path, 0, 3) != "../")))
-			 * $p_path = "./".$p_path;
-			 */
+		return true;
+	}
 
-			$isWin = (substr(PHP_OS, 0, 3) == 'WIN');
+	// --------------------------------------------------------------------------------
+	// Function : PclTarHandleExtract()
+	// Description :
+	// Parameters :
+	//   $p_tarname : Filename of the tar (or tgz) archive
+	//   $p_file_list : An array which contains the list of files to extract, this
+	//              array may be empty when $p_mode is 'complete'
+	//   $p_list_detail : An array where will be placed the properties of  each extracted/listed file
+	//   $p_mode : 'complete' will extract all files from the archive,
+	//          'partial' will look for files in $p_file_list
+	//          'list' will only list the files from the archive without any extract
+	//   $p_path : Path to add while writing the extracted files
+	//   $p_tar_mode : 'tar' for GNU TAR archive, 'tgz' for compressed archive
+	//   $p_remove_path : Path to remove (from the file memorized path) while writing the
+	//                  extracted files. If the path does not match the file path,
+	//                  the file is extracted with its memorized path.
+	//                  $p_remove_path does not apply to 'list' mode.
+	//                  $p_path and $p_remove_path are commulative.
+	// Return Values :
+	// --------------------------------------------------------------------------------
+	private function PclTarHandleExtract($p_tarname, $p_file_list, &$p_list_detail, $p_mode, $p_path, $p_tar_mode, $p_remove_path) {
+		global $server;
 
-			if (!$isWin) {
-				if (($p_path == '') || ((substr($p_path, 0, 1) != '/') && (substr($p_path, 0, 3) != '../'))) {
-					$p_path = './' . $p_path;
-				}
+		$v_result      = 1;
+		$v_nb          = 0;
+		$v_extract_all = true;
+		$v_listing     = false;
+
+		// ----- Check the path
+		/*
+		 * if (($p_path == "") || ((substr($p_path, 0, 1) != "/") && (substr($p_path, 0, 3) != "../")))
+		 * $p_path = "./".$p_path;
+		 */
+
+		$isWin = (substr(PHP_OS, 0, 3) == 'WIN');
+
+		if (!$isWin) {
+			if (($p_path == '') || ((substr($p_path, 0, 1) != '/') && (substr($p_path, 0, 3) != '../'))) {
+				$p_path = './' . $p_path;
 			}
-			// ----- Look for path to remove format (should end by /)
-			if (($p_remove_path != '') && (substr($p_remove_path, -1) != '/')) {
-				$p_remove_path .= '/';
-			}
-			$p_remove_path_size = strlen($p_remove_path);
+		}
+		// ----- Look for path to remove format (should end by /)
+		if (($p_remove_path != '') && (substr($p_remove_path, -1) != '/')) {
+			$p_remove_path .= '/';
+		}
+		$p_remove_path_size = strlen($p_remove_path);
 
-			// ----- Study the mode
-			switch ($p_mode) {
-				case 'complete':
+		// ----- Study the mode
+		switch ($p_mode) {
+			case 'complete':
 				// ----- Flag extract of all files
 				$v_extract_all = true;
 				$v_listing     = false;
 
 				break;
 
-				case 'partial':
+			case 'partial':
 				// ----- Flag extract of specific files
 				$v_extract_all = false;
 				$v_listing     = false;
 
 				break;
 
-				case 'list':
+			case 'list':
 				// ----- Flag list of all files
 				$v_extract_all = false;
 				$v_listing     = true;
 
 				break;
 
-				default:
+			default:
 				return false;
+		}
+
+		// ----- Open the tar file
+		if ($p_tar_mode == 'tar') {
+			$v_tar = fopen($p_tarname, 'rb');
+		} else {
+			$v_tar = @gzopen($p_tarname, 'rb');
+		}
+
+		// ----- Check that the archive is open
+		if ($v_tar == 0) {
+			return false;
+		}
+
+		$start = time();
+
+		// ----- Read the blocks
+		while (!($v_end_of_file = ($p_tar_mode == 'tar' ? feof($v_tar) : gzeof($v_tar)))) {
+			// ----- Clear cache of file infos
+			clearstatcache();
+
+			if (time() - $start > 55) {
+				$server->extendTimeLimit();
+				$start = time();
 			}
 
-			// ----- Open the tar file
+			// ----- Reset extract tag
+			$v_extract_file       = false;
+			$v_extraction_stopped = 0;
+
+			// ----- Read the 512 bytes header
 			if ($p_tar_mode == 'tar') {
-				$v_tar = fopen($p_tarname, 'rb');
+				$v_binary_data = fread($v_tar, 512);
 			} else {
-				$v_tar = @gzopen($p_tarname, 'rb');
+				$v_binary_data = gzread($v_tar, 512);
 			}
 
-			// ----- Check that the archive is open
-			if ($v_tar == 0) {
-				return false;
-			}
+			// ----- Read the header properties
+			$v_header = array();
 
-			$start = time();
-
-			// ----- Read the blocks
-			while (!($v_end_of_file = ($p_tar_mode == 'tar' ? feof($v_tar) : gzeof($v_tar)))) {
-				// ----- Clear cache of file infos
-				clearstatcache();
-
-				if (time() - $start > 55) {
-					$server->extendTimeLimit();
-					$start = time();
-				}
-
-				// ----- Reset extract tag
-				$v_extract_file       = false;
-				$v_extraction_stopped = 0;
-
-				// ----- Read the 512 bytes header
+			if (($v_result = $this->PclTarHandleReadHeader($v_binary_data, $v_header)) != 1) {
+				// ----- Close the archive file
 				if ($p_tar_mode == 'tar') {
-					$v_binary_data = fread($v_tar, 512);
+					fclose($v_tar);
 				} else {
-					$v_binary_data = gzread($v_tar, 512);
+					gzclose($v_tar);
 				}
 
-				// ----- Read the header properties
-				$v_header = array();
+				// ----- Return
+				return $v_result;
+			}
 
-				if (($v_result = $this->PclTarHandleReadHeader($v_binary_data, $v_header)) != 1) {
-					// ----- Close the archive file
-					if ($p_tar_mode == 'tar') {
-						fclose($v_tar);
-					} else {
-						gzclose($v_tar);
-					}
+			// ----- Look for empty blocks to skip
+			if ($v_header['filename'] == '') {
+				continue;
+			}
 
-					// ----- Return
-					return $v_result;
-				}
+			// ----- Look for partial extract
+			if ((!$v_extract_all) && (is_array($p_file_list))) {
+				// ----- By default no unzip if the file is not found
+				$v_extract_file = false;
 
-				// ----- Look for empty blocks to skip
-				if ($v_header['filename'] == '') {
-					continue;
-				}
-
-				// ----- Look for partial extract
-				if ((!$v_extract_all) && (is_array($p_file_list))) {
-					// ----- By default no unzip if the file is not found
-					$v_extract_file = false;
-
-					// ----- Look into the file list
-					for ($i = 0; $i < sizeof($p_file_list); $i++) {
-						// ----- Look if it is a directory
-						if (substr($p_file_list[$i], -1) == '/') {
-							// ----- Look if the directory is in the filename path
-							if ((strlen($v_header['filename']) > strlen($p_file_list[$i])) && (substr($v_header['filename'], 0, strlen($p_file_list[$i])) == $p_file_list[$i])) {
-								// ----- The file is in the directory, so extract it
-								$v_extract_file = true;
-
-								// ----- End of loop
-								break;
-							}
-						} elseif ($p_file_list[$i] == $v_header['filename']) { // ----- It is a file, so compare the file names
-							// ----- File found
+				// ----- Look into the file list
+				for ($i = 0; $i < sizeof($p_file_list); $i++) {
+					// ----- Look if it is a directory
+					if (substr($p_file_list[$i], -1) == '/') {
+						// ----- Look if the directory is in the filename path
+						if ((strlen($v_header['filename']) > strlen($p_file_list[$i])) && (substr($v_header['filename'], 0, strlen($p_file_list[$i])) == $p_file_list[$i])) {
+							// ----- The file is in the directory, so extract it
 							$v_extract_file = true;
 
 							// ----- End of loop
 							break;
 						}
-					}
+					} elseif ($p_file_list[$i] == $v_header['filename']) { // ----- It is a file, so compare the file names
+						// ----- File found
+						$v_extract_file = true;
 
-					// ----- Trace
-					if (!$v_extract_file) {
+						// ----- End of loop
+						break;
 					}
-				} else {
-					// ----- All files need to be extracted
-					$v_extract_file = true;
 				}
 
-				// ----- Look if this file need to be extracted
-				if (($v_extract_file) && (!$v_listing)) {
-					// ----- Look for path to remove
-					if (($p_remove_path != '')
+				// ----- Trace
+				if (!$v_extract_file) {
+				}
+			} else {
+				// ----- All files need to be extracted
+				$v_extract_file = true;
+			}
+
+			// ----- Look if this file need to be extracted
+			if (($v_extract_file) && (!$v_listing)) {
+				// ----- Look for path to remove
+				if (($p_remove_path != '')
 					&& (substr($v_header['filename'], 0, $p_remove_path_size) == $p_remove_path)
 				) {
-						// ----- Remove the path
-						$v_header['filename'] = substr($v_header['filename'], $p_remove_path_size);
+					// ----- Remove the path
+					$v_header['filename'] = substr($v_header['filename'], $p_remove_path_size);
+				}
+
+				// ----- Add the path to the file
+				if (($p_path != './') && ($p_path != '/')) {
+					// ----- Look for the path end '/'
+					while (substr($p_path, -1) == '/') {
+						$p_path = substr($p_path, 0, strlen($p_path) - 1);
 					}
 
-					// ----- Add the path to the file
-					if (($p_path != './') && ($p_path != '/')) {
-						// ----- Look for the path end '/'
-						while (substr($p_path, -1) == '/') {
-							$p_path = substr($p_path, 0, strlen($p_path) - 1);
-						}
-
-						// ----- Add the path
-						if (substr($v_header['filename'], 0, 1) == '/') {
-							$v_header['filename'] = $p_path . $v_header['filename'];
-						} else {
-							$v_header['filename'] = $p_path . '/' . $v_header['filename'];
-						}
-					}
-
-					// ----- Check that the file does not exists
-					if (file_exists($v_header['filename'])) {
-						// ----- Look if file is a directory
-						if (is_dir($v_header['filename'])) {
-							// ----- Change the file status
-							$v_header['status'] = 'already_a_directory';
-
-							// ----- Skip the extract
-							$v_extraction_stopped = 1;
-							$v_extract_file       = 0;
-						} elseif (!is_writeable($v_header['filename'])) { // ----- Look if file is write protected
-							// ----- Change the file status
-							$v_header['status'] = 'write_protected';
-
-							// ----- Skip the extract
-							$v_extraction_stopped = 1;
-							$v_extract_file       = 0;
-						} elseif (filemtime($v_header['filename']) > $v_header['mtime']) { // ----- Look if the extracted file is older
-							// ----- Change the file status
-							$v_header['status'] = 'newer_exist';
-
-							// ----- Skip the extract
-							$v_extraction_stopped = 1;
-							$v_extract_file       = 0;
-						}
-					} else { // ----- Check the directory availability and create it if necessary
-						if ($v_header['typeflag'] == '5') {
-							$v_dir_to_check = $v_header['filename'];
-						} elseif (!strstr($v_header['filename'], '/')) {
-							$v_dir_to_check = '';
-						} else {
-							$v_dir_to_check = dirname($v_header['filename']);
-						}
-
-						if (($v_result = $this->PclTarHandlerDirCheck($v_dir_to_check)) != 1) {
-							// ----- Change the file status
-							$v_header['status'] = 'path_creation_fail';
-
-							// ----- Skip the extract
-							$v_extraction_stopped = 1;
-							$v_extract_file       = 0;
-						}
-					}
-
-					// ----- Do the extraction
-					if (($v_extract_file) && ($v_header['typeflag'] != '5')) {
-						// ----- Open the destination file in write mode
-						if (($v_dest_file = @fopen($v_header['filename'], 'wb')) == 0) {
-							// ----- Change the file status
-							$v_header['status'] = 'write_error';
-
-							// ----- Jump to next file
-							if ($p_tar_mode == 'tar') {
-								fseek($v_tar, ftell($v_tar) + (ceil(($v_header['size'] / 512)) * 512));
-							} else {
-								gzseek($v_tar, gztell($v_tar) + (ceil(($v_header['size'] / 512)) * 512));
-							}
-						} else {
-							// ----- Read data
-							$n = floor($v_header['size'] / 512);
-
-							for ($i = 0; $i < $n; $i++) {
-								if ($p_tar_mode == 'tar') {
-									$v_content = fread($v_tar, 512);
-								} else {
-									$v_content = gzread($v_tar, 512);
-								}
-								fwrite($v_dest_file, $v_content, 512);
-							}
-
-							if (($v_header['size'] % 512) != 0) {
-								if ($p_tar_mode == 'tar') {
-									$v_content = fread($v_tar, 512);
-								} else {
-									$v_content = gzread($v_tar, 512);
-								}
-								fwrite($v_dest_file, $v_content, ($v_header['size'] % 512));
-							}
-
-							// ----- Close the destination file
-							fclose($v_dest_file);
-
-							// ----- Change the file mode, mtime
-							@touch($v_header['filename'], $v_header['mtime']);
-							//chmod($v_header[filename], DecOct($v_header[mode]));
-						}
-
-						// ----- Check the file size
-						clearstatcache();
-
-						if (filesize($v_header['filename']) != $v_header['size']) {
-							// ----- Close the archive file
-							if ($p_tar_mode == 'tar') {
-								fclose($v_tar);
-							} else {
-								gzclose($v_tar);
-							}
-
-							// ----- Return
-							return false;
-						}
+					// ----- Add the path
+					if (substr($v_header['filename'], 0, 1) == '/') {
+						$v_header['filename'] = $p_path . $v_header['filename'];
 					} else {
+						$v_header['filename'] = $p_path . '/' . $v_header['filename'];
+					}
+				}
+
+				// ----- Check that the file does not exists
+				if (file_exists($v_header['filename'])) {
+					// ----- Look if file is a directory
+					if (is_dir($v_header['filename'])) {
+						// ----- Change the file status
+						$v_header['status'] = 'already_a_directory';
+
+						// ----- Skip the extract
+						$v_extraction_stopped = 1;
+						$v_extract_file       = 0;
+					} elseif (!is_writeable($v_header['filename'])) { // ----- Look if file is write protected
+						// ----- Change the file status
+						$v_header['status'] = 'write_protected';
+
+						// ----- Skip the extract
+						$v_extraction_stopped = 1;
+						$v_extract_file       = 0;
+					} elseif (filemtime($v_header['filename']) > $v_header['mtime']) { // ----- Look if the extracted file is older
+						// ----- Change the file status
+						$v_header['status'] = 'newer_exist';
+
+						// ----- Skip the extract
+						$v_extraction_stopped = 1;
+						$v_extract_file       = 0;
+					}
+				} else { // ----- Check the directory availability and create it if necessary
+					if ($v_header['typeflag'] == '5') {
+						$v_dir_to_check = $v_header['filename'];
+					} elseif (!strstr($v_header['filename'], '/')) {
+						$v_dir_to_check = '';
+					} else {
+						$v_dir_to_check = dirname($v_header['filename']);
+					}
+
+					if (($v_result = $this->PclTarHandlerDirCheck($v_dir_to_check)) != 1) {
+						// ----- Change the file status
+						$v_header['status'] = 'path_creation_fail';
+
+						// ----- Skip the extract
+						$v_extraction_stopped = 1;
+						$v_extract_file       = 0;
+					}
+				}
+
+				// ----- Do the extraction
+				if (($v_extract_file) && ($v_header['typeflag'] != '5')) {
+					// ----- Open the destination file in write mode
+					if (($v_dest_file = @fopen($v_header['filename'], 'wb')) == 0) {
+						// ----- Change the file status
+						$v_header['status'] = 'write_error';
+
 						// ----- Jump to next file
 						if ($p_tar_mode == 'tar') {
 							fseek($v_tar, ftell($v_tar) + (ceil(($v_header['size'] / 512)) * 512));
 						} else {
 							gzseek($v_tar, gztell($v_tar) + (ceil(($v_header['size'] / 512)) * 512));
 						}
+					} else {
+						// ----- Read data
+						$n = floor($v_header['size'] / 512);
+
+						for ($i = 0; $i < $n; $i++) {
+							if ($p_tar_mode == 'tar') {
+								$v_content = fread($v_tar, 512);
+							} else {
+								$v_content = gzread($v_tar, 512);
+							}
+							fwrite($v_dest_file, $v_content, 512);
+						}
+
+						if (($v_header['size'] % 512) != 0) {
+							if ($p_tar_mode == 'tar') {
+								$v_content = fread($v_tar, 512);
+							} else {
+								$v_content = gzread($v_tar, 512);
+							}
+							fwrite($v_dest_file, $v_content, ($v_header['size'] % 512));
+						}
+
+						// ----- Close the destination file
+						fclose($v_dest_file);
+
+						// ----- Change the file mode, mtime
+						@touch($v_header['filename'], $v_header['mtime']);
+						//chmod($v_header[filename], DecOct($v_header[mode]));
 					}
-				} else { // ----- Look for file that is not to be unzipped
+
+					// ----- Check the file size
+					clearstatcache();
+
+					if (filesize($v_header['filename']) != $v_header['size']) {
+						// ----- Close the archive file
+						if ($p_tar_mode == 'tar') {
+							fclose($v_tar);
+						} else {
+							gzclose($v_tar);
+						}
+
+						// ----- Return
+						return false;
+					}
+				} else {
 					// ----- Jump to next file
 					if ($p_tar_mode == 'tar') {
-						fseek($v_tar, ($p_tar_mode == 'tar' ? ftell($v_tar) : gztell($v_tar)) + (ceil(($v_header[size] / 512)) * 512));
+						fseek($v_tar, ftell($v_tar) + (ceil(($v_header['size'] / 512)) * 512));
 					} else {
-						gzseek($v_tar, gztell($v_tar) + (ceil(($v_header[size] / 512)) * 512));
+						gzseek($v_tar, gztell($v_tar) + (ceil(($v_header['size'] / 512)) * 512));
 					}
 				}
-
+			} else { // ----- Look for file that is not to be unzipped
+				// ----- Jump to next file
 				if ($p_tar_mode == 'tar') {
-					$v_end_of_file = feof($v_tar);
+					fseek($v_tar, ($p_tar_mode == 'tar' ? ftell($v_tar) : gztell($v_tar)) + (ceil(($v_header[size] / 512)) * 512));
 				} else {
-					$v_end_of_file = gzeof($v_tar);
-				}
-
-				// ----- File name and properties are logged if listing mode or file is extracted
-				if ($v_listing || $v_extract_file || $v_extraction_stopped) {
-					// ----- Log extracted files
-					if (($v_file_dir = dirname($v_header['filename'])) == $v_header['filename']) {
-						$v_file_dir = '';
-					}
-
-					if ((substr($v_header['filename'], 0, 1) == '/') && ($v_file_dir == '')) {
-						$v_file_dir = '/';
-					}
-
-					// ----- Add the array describing the file into the list
-					$p_list_detail[$v_nb] = $v_header;
-
-					// ----- Increment
-					$v_nb++;
+					gzseek($v_tar, gztell($v_tar) + (ceil(($v_header[size] / 512)) * 512));
 				}
 			}
 
-			// ----- Close the tarfile
 			if ($p_tar_mode == 'tar') {
-				fclose($v_tar);
+				$v_end_of_file = feof($v_tar);
 			} else {
-				gzclose($v_tar);
+				$v_end_of_file = gzeof($v_tar);
 			}
 
-			// ----- Return
+			// ----- File name and properties are logged if listing mode or file is extracted
+			if ($v_listing || $v_extract_file || $v_extraction_stopped) {
+				// ----- Log extracted files
+				if (($v_file_dir = dirname($v_header['filename'])) == $v_header['filename']) {
+					$v_file_dir = '';
+				}
+
+				if ((substr($v_header['filename'], 0, 1) == '/') && ($v_file_dir == '')) {
+					$v_file_dir = '/';
+				}
+
+				// ----- Add the array describing the file into the list
+				$p_list_detail[$v_nb] = $v_header;
+
+				// ----- Increment
+				$v_nb++;
+			}
+		}
+
+		// ----- Close the tarfile
+		if ($p_tar_mode == 'tar') {
+			fclose($v_tar);
+		} else {
+			gzclose($v_tar);
+		}
+
+		// ----- Return
+		return $v_result;
+	}
+
+	// --------------------------------------------------------------------------------
+
+	// --------------------------------------------------------------------------------
+	// Function : PclTarHandleReadHeader()
+	// Description :
+	// Parameters :
+	// Return Values :
+	// --------------------------------------------------------------------------------
+	private function PclTarHandleReadHeader($v_binary_data, &$v_header) {
+		$v_result = 1;
+
+		// ----- Read the 512 bytes header
+		/*
+		if ($p_tar_mode == "tar")
+		$v_binary_data = fread($p_tar, 512);
+		else
+		$v_binary_data = gzread($p_tar, 512);
+		*/
+
+		// ----- Look for no more block
+		if (strlen($v_binary_data) == 0) {
+			$v_header['filename'] = '';
+			$v_header['status']   = 'empty';
+
 			return $v_result;
 		}
 
-		// --------------------------------------------------------------------------------
+		// ----- Look for invalid block size
+		if (strlen($v_binary_data) != 512) {
+			$v_header['filename'] = '';
+			$v_header['status']   = 'invalid_header';
 
-		// --------------------------------------------------------------------------------
-		// Function : PclTarHandleReadHeader()
-		// Description :
-		// Parameters :
-		// Return Values :
-		// --------------------------------------------------------------------------------
-		private function PclTarHandleReadHeader($v_binary_data, &$v_header) {
-			$v_result = 1;
+			// ----- Return
+			return false;
+		}
 
-			// ----- Read the 512 bytes header
-			/*
-			if ($p_tar_mode == "tar")
-			$v_binary_data = fread($p_tar, 512);
-			else
-			$v_binary_data = gzread($p_tar, 512);
-			*/
+		// ----- Calculate the checksum
+		$v_checksum = 0;
+		// ..... First part of the header
+		for ($i = 0; $i < 148; $i++) {
+			$v_checksum += ord(substr($v_binary_data, $i, 1));
+		}
+		// ..... Ignore the checksum value and replace it by ' ' (space)
+		for ($i = 148; $i < 156; $i++) {
+			$v_checksum += ord(' ');
+		}
+		// ..... Last part of the header
+		for ($i = 156; $i < 512; $i++) {
+			$v_checksum += ord(substr($v_binary_data, $i, 1));
+		}
 
-			// ----- Look for no more block
-			if (strlen($v_binary_data) == 0) {
-				$v_header['filename'] = '';
-				$v_header['status']   = 'empty';
+		// ----- Extract the values
+		$v_data = unpack('a100filename/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1typeflag/a100link/a6magic/a2version/a32uname/a32gname/a8devmajor/a8devminor', $v_binary_data);
 
+		// ----- Extract the checksum for check
+		$v_header['checksum'] = octdec(trim($v_data['checksum']));
+
+		if ($v_header['checksum'] != $v_checksum) {
+			$v_header['filename'] = '';
+			$v_header['status']   = 'invalid_header';
+
+			// ----- Look for last block (empty block)
+			if (($v_checksum == 256) && ($v_header['checksum'] == 0)) {
+				$v_header['status'] = 'empty';
+				// ----- Return
 				return $v_result;
 			}
 
-			// ----- Look for invalid block size
-			if (strlen($v_binary_data) != 512) {
-				$v_header['filename'] = '';
-				$v_header['status']   = 'invalid_header';
+			// ----- Return
+			return false;
+		}
+		// ----- Extract the properties
+		$v_header['filename'] = trim($v_data['filename']);
+		$v_header['mode']     = octdec(trim($v_data['mode']));
+		$v_header['uid']      = octdec(trim($v_data['uid']));
+		$v_header['gid']      = octdec(trim($v_data['gid']));
+		$v_header['size']     = octdec(trim($v_data['size']));
+		$v_header['mtime']    = octdec(trim($v_data['mtime']));
 
-				// ----- Return
-				return false;
-			}
+		if (($v_header['typeflag'] = $v_data['typeflag']) == '5') {
+			$v_header['size'] = 0;
+		}
+		/* ----- All these fields are removed form the header because they do not carry interesting info
+		$v_header[link] = trim($v_data[link]);
+		TrFctMessage(__FILE__, __LINE__, 2, "Linkname : $v_header[linkname]");
+		$v_header[magic] = trim($v_data[magic]);
+		TrFctMessage(__FILE__, __LINE__, 2, "Magic : $v_header[magic]");
+		$v_header[version] = trim($v_data[version]);
+		TrFctMessage(__FILE__, __LINE__, 2, "Version : $v_header[version]");
+		$v_header[uname] = trim($v_data[uname]);
+		TrFctMessage(__FILE__, __LINE__, 2, "Uname : $v_header[uname]");
+		$v_header[gname] = trim($v_data[gname]);
+		TrFctMessage(__FILE__, __LINE__, 2, "Gname : $v_header[gname]");
+		$v_header[devmajor] = trim($v_data[devmajor]);
+		TrFctMessage(__FILE__, __LINE__, 2, "Devmajor : $v_header[devmajor]");
+		$v_header[devminor] = trim($v_data[devminor]);
+		TrFctMessage(__FILE__, __LINE__, 2, "Devminor : $v_header[devminor]");
+		*/
 
-			// ----- Calculate the checksum
-			$v_checksum = 0;
-			// ..... First part of the header
-			for ($i = 0; $i < 148; $i++) {
-				$v_checksum += ord(substr($v_binary_data, $i, 1));
-			}
-			// ..... Ignore the checksum value and replace it by ' ' (space)
-			for ($i = 148; $i < 156; $i++) {
-				$v_checksum += ord(' ');
-			}
-			// ..... Last part of the header
-			for ($i = 156; $i < 512; $i++) {
-				$v_checksum += ord(substr($v_binary_data, $i, 1));
-			}
+		// ----- Set the status field
+		$v_header['status'] = 'ok';
 
-			// ----- Extract the values
-			$v_data = unpack('a100filename/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1typeflag/a100link/a6magic/a2version/a32uname/a32gname/a8devmajor/a8devminor', $v_binary_data);
+		// ----- Return
+		return $v_result;
+	}
 
-			// ----- Extract the checksum for check
-			$v_header['checksum'] = octdec(trim($v_data['checksum']));
+	// --------------------------------------------------------------------------------
 
-			if ($v_header['checksum'] != $v_checksum) {
-				$v_header['filename'] = '';
-				$v_header['status']   = 'invalid_header';
+	// --------------------------------------------------------------------------------
+	// Function : PclTarHandlerDirCheck()
+	// Description :
+	//   Check if a directory exists, if not it creates it and all the parents directory
+	//   which may be useful.
+	// Parameters :
+	//   $p_dir : Directory path to check (without / at the end).
+	// Return Values :
+	//  1 : OK
+	//   -1 : Unable to create directory
+	// --------------------------------------------------------------------------------
+	private function PclTarHandlerDirCheck($p_dir) {
+		$v_result = 1;
 
-				// ----- Look for last block (empty block)
-				if (($v_checksum == 256) && ($v_header['checksum'] == 0)) {
-					$v_header['status'] = 'empty';
-					// ----- Return
+		// ----- Check the directory availability
+		if ((is_dir($p_dir)) || ($p_dir == '')) {
+			return 1;
+		}
+
+		// ----- Look for file alone
+		/*
+		 *if (!strstr("$p_dir", "/")) {
+		 *  TrFctEnd(__FILE__, __LINE__,  "'$p_dir' is a file with no directory");
+		 *  return 1;
+		 *}
+		 */
+
+		// ----- Extract parent directory
+		$p_parent_dir = dirname($p_dir);
+
+		// ----- Just a check
+		if ($p_parent_dir != $p_dir) {
+			// ----- Look for parent directory
+			if ($p_parent_dir != '') {
+				if (($v_result = $this->PclTarHandlerDirCheck($p_parent_dir)) != 1) {
 					return $v_result;
 				}
-
-				// ----- Return
-				return false;
 			}
-			// ----- Extract the properties
-			$v_header['filename'] = trim($v_data['filename']);
-			$v_header['mode']     = octdec(trim($v_data['mode']));
-			$v_header['uid']      = octdec(trim($v_data['uid']));
-			$v_header['gid']      = octdec(trim($v_data['gid']));
-			$v_header['size']     = octdec(trim($v_data['size']));
-			$v_header['mtime']    = octdec(trim($v_data['mtime']));
+		}
 
-			if (($v_header['typeflag'] = $v_data['typeflag']) == '5') {
-				$v_header['size'] = 0;
-			}
-			/* ----- All these fields are removed form the header because they do not carry interesting info
-			$v_header[link] = trim($v_data[link]);
-			TrFctMessage(__FILE__, __LINE__, 2, "Linkname : $v_header[linkname]");
-			$v_header[magic] = trim($v_data[magic]);
-			TrFctMessage(__FILE__, __LINE__, 2, "Magic : $v_header[magic]");
-			$v_header[version] = trim($v_data[version]);
-			TrFctMessage(__FILE__, __LINE__, 2, "Version : $v_header[version]");
-			$v_header[uname] = trim($v_data[uname]);
-			TrFctMessage(__FILE__, __LINE__, 2, "Uname : $v_header[uname]");
-			$v_header[gname] = trim($v_data[gname]);
-			TrFctMessage(__FILE__, __LINE__, 2, "Gname : $v_header[gname]");
-			$v_header[devmajor] = trim($v_data[devmajor]);
-			TrFctMessage(__FILE__, __LINE__, 2, "Devmajor : $v_header[devmajor]");
-			$v_header[devminor] = trim($v_data[devminor]);
-			TrFctMessage(__FILE__, __LINE__, 2, "Devminor : $v_header[devminor]");
-			*/
-
-			// ----- Set the status field
-			$v_header['status'] = 'ok';
-
+		// ----- Create the directory
+		if (!@mkdir($p_dir, 0777)) {
 			// ----- Return
-			return $v_result;
+			return false;
 		}
 
-		// --------------------------------------------------------------------------------
-
-		// --------------------------------------------------------------------------------
-		// Function : PclTarHandlerDirCheck()
-		// Description :
-		//   Check if a directory exists, if not it creates it and all the parents directory
-		//   which may be useful.
-		// Parameters :
-		//   $p_dir : Directory path to check (without / at the end).
-		// Return Values :
-		//  1 : OK
-		//   -1 : Unable to create directory
-		// --------------------------------------------------------------------------------
-		private function PclTarHandlerDirCheck($p_dir) {
-			$v_result = 1;
-
-			// ----- Check the directory availability
-			if ((is_dir($p_dir)) || ($p_dir == '')) {
-				return 1;
-			}
-
-			// ----- Look for file alone
-			/*
-			if (!strstr("$p_dir", "/"))
-			{
-			TrFctEnd(__FILE__, __LINE__,  "'$p_dir' is a file with no directory");
-			return 1;
+		// ----- Return
+		return $v_result;
 	}
-	*/
 
-			// ----- Extract parent directory
-			$p_parent_dir = dirname($p_dir);
+	// --------------------------------------------------------------------------------
 
-			// ----- Just a check
-			if ($p_parent_dir != $p_dir) {
-				// ----- Look for parent directory
-				if ($p_parent_dir != '') {
-					if (($v_result = $this->PclTarHandlerDirCheck($p_parent_dir)) != 1) {
-						return $v_result;
-					}
-				}
-			}
-
-			// ----- Create the directory
-			if (!@mkdir($p_dir, 0777)) {
-				// ----- Return
-				return false;
-			}
-
-			// ----- Return
-			return $v_result;
+	// --------------------------------------------------------------------------------
+	// Function : PclTarHandleExtension()
+	// Description :
+	// Parameters :
+	// Return Values :
+	// --------------------------------------------------------------------------------
+	private function PclTarHandleExtension($p_tarname) {
+		// ----- Look for file extension
+		if ((substr($p_tarname, -7) == '.tar.gz') || (substr($p_tarname, -4) == '.tgz')) {
+			$v_tar_mode = 'tgz';
+		} elseif (substr($p_tarname, -4) == '.tar') {
+			$v_tar_mode = 'tar';
+		} else {
+			$v_tar_mode = '';
 		}
 
-		// --------------------------------------------------------------------------------
-
-		// --------------------------------------------------------------------------------
-		// Function : PclTarHandleExtension()
-		// Description :
-		// Parameters :
-		// Return Values :
-		// --------------------------------------------------------------------------------
-		private function PclTarHandleExtension($p_tarname) {
-			// ----- Look for file extension
-			if ((substr($p_tarname, -7) == '.tar.gz') || (substr($p_tarname, -4) == '.tgz')) {
-				$v_tar_mode = 'tgz';
-			} elseif (substr($p_tarname, -4) == '.tar') {
-				$v_tar_mode = 'tar';
-			} else {
-				$v_tar_mode = '';
-			}
-
-			return $v_tar_mode;
-		}
-
-		// --------------------------------------------------------------------------------
+		return $v_tar_mode;
 	}
+
+	// --------------------------------------------------------------------------------
+}
 
 // ---------------------- M A I N
 $config     = new preInstallerConfig();
