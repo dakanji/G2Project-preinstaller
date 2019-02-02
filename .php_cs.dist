@@ -1,7 +1,7 @@
 <?php
 // __construct
 $finder = PhpCsFixer\Finder::create()
-	->name('/preinstaller\.php$/')
+	->name('/preinstall\.php$/')
     ->in(__DIR__)
 ;
 

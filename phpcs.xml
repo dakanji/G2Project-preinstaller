@@ -13,8 +13,8 @@
 
 	<!-- ARGS -->
 	<arg name="tab-width" value="4" />
-	<arg name="extensions" value="php,inc,class,css,js,xml,xaml,html" />
-	<arg name="ignore" value="*/lib/composer/*,*/dev_vendor/*,*MANIFEST*" />
+	<arg name="extensions" value="php" />
+	<arg name="ignore" value="*/lib/composer/*,*/dev_vendor/*,*/dev_scripts/*,*MANIFEST*" />
 
 	<!-- Load WordPress Standards -->
 	<config name="installed_paths" value="dev_vendor/wp-coding-standards/wpcs" />
@@ -39,9 +39,9 @@
 	<rule ref="WordPress.PHP.TypeCasts" />
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
-			<property name="maxColumn" value="50" />
+			<property name="maxColumn" value="80" />
 			<property name="exact" value="false" />
-			<property name="alignMultilineItems" value="!=100" />
+			<property name="alignMultilineItems" value="<50" />
 		</properties>
 	</rule>
 	<rule ref="WordPress.Arrays.ArrayDeclarationSpacing">
@@ -74,7 +74,7 @@
 	</rule>
 	<rule ref="Generic.Formatting.MultipleStatementAlignment">
 		<properties>
-			<property name="maxPadding" value="50" />
+			<property name="maxPadding" value="25" />
 		</properties>
 	</rule>
 	<rule ref="Generic.WhiteSpace.ScopeIndent">
