@@ -50,3 +50,4 @@ attic
 *.zip
 *.tar.gz
 gallery2
+composer.phar
