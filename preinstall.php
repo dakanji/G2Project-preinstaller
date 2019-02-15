@@ -74,7 +74,25 @@ class preInstallerConfig {
 	// Implementation Stage
 	public $stuckOnTwo = false;
 
+	// PHP allow_url_fopen status
+	public $authenticated = false;
+
 	public function __construct() {
+		$arrSubsetAll    = array();
+		$arrSubsetStable = array();
+
+		// Default to master
+		$latestPathAll    = "https://github.com/$this->g2Repo/archive/master";
+		$latestPathStable = $latestPathAll;
+
+		// Last Stable Release Tag Name.
+		// Default to Last Official Release Tag
+		$this->stableReleaseTag = $this->officialReleaseTag;
+
+		// Last Release Candidate Tag Name.
+		// Default to Last Stable Release Tag
+		$this->releaseCandidateTag = $this->stableReleaseTag;
+
 		if (ini_get('allow_url_fopen')) {
 			$this->allowFOpen = true;
 
@@ -93,9 +111,6 @@ class preInstallerConfig {
 		}
 
 		if ($this->allowFOpen && $releases) {
-			$arrSubsetAll    = array();
-			$arrSubsetStable = array();
-
 			foreach ($releases as $release) {
 				// Put a Subset of Stable Releases into an Array
 				if ($release->prerelease === false) {
@@ -123,28 +138,26 @@ class preInstallerConfig {
 			// Then Get Path of First Item in Sorted Array
 			$arrSubsetStable  = $this->arraySorter($arrSubsetStable, 'created_at');
 			$latestPathStable = $arrSubsetStable[0]['zipball_url'];
-		} else {
-			// Default to master
-			$latestPathAll    = "https://github.com/$this->g2Repo/archive/master";
-			$latestPathStable = $latestPathAll;
+
+			// Update Last Stable Release Tag Name.
+			if ($arrSubsetStable[0]['tag_name']) {
+				$this->stableReleaseTag = $arrSubsetStable[0]['tag_name'];
+			}
+
+			// Update Last Release Candidate Tag Name.
+			if ($arrSubsetAll[0]['tag_name']) {
+				$this->releaseCandidateTag = $arrSubsetAll[0]['tag_name'];
+			}
+
+			// Paths to Codebase Releases
+			$this->downloadUrls = array(
+				'official' => "https://github.com/$this->g2Repo/archive/v2.3.2",
+				'stable'   => $latestPathStable,
+				'tag'      => $latestPathAll,
+				'master'   => "https://github.com/$this->g2Repo/archive/master",
+				'dev'      => "https://github.com/$this->g2Repo/archive/dev",
+			);
 		}
-
-		// Last Stable Release Tag Name.
-		// Default to Last Official Release Tag
-		$this->stableReleaseTag = $arrSubsetStable[0]['tag_name'] ? $arrSubsetStable[0]['tag_name'] : $this->officialReleaseTag;
-
-		// Last Release Candidate Tag Name.
-		// Default to Last Stable Release Tag
-		$this->releaseCandidateTag = $arrSubsetAll[0]['tag_name'] ? $arrSubsetAll[0]['tag_name'] : $this->stableReleaseTag;
-
-		// Paths to Codebase Releases
-		$this->downloadUrls = array(
-			'official' => "https://github.com/$this->g2Repo/archive/v2.3.2",
-			'stable'   => $latestPathStable,
-			'tag'      => $latestPathAll,
-			'master'   => "https://github.com/$this->g2Repo/archive/master",
-			'dev'      => "https://github.com/$this->g2Repo/archive/dev",
-		);
 	}
 
 	protected function arraySorter($array, $on, $order = SORT_DESC) {
@@ -603,7 +616,7 @@ class preInstaller {
 	}
 
 	public function authenticate() {
-		global $passPhrase, $page;
+		global $config, $passPhrase, $page;
 
 		// Check authentication
 		if (empty($passPhrase)) {
@@ -618,7 +631,9 @@ class preInstaller {
 			&& trim($_COOKIE['G2PREINSTALLER']) == md5($passPhrase)
 		) {
 			// Already logged in, got a cookie
-			return true;
+			$config->authenticated = true;
+
+			return $config->authenticated;
 		}
 
 		if (!empty($_POST['g2_password'])) {
@@ -626,7 +641,9 @@ class preInstaller {
 			if ($_POST['g2_password'] == $passPhrase) {
 				setcookie('G2PREINSTALLER', md5($passPhrase), 0);
 
-				return true;
+				$config->authenticated = true;
+
+				return $config->authenticated;
 			}
 			$page->render(
 				'passwordForm',
@@ -1140,7 +1157,13 @@ class CurlDownloader extends DownloadMethod {
 	public function isSupported() {
 		global $server;
 
-		foreach (array('curl_init', 'curl_setopt', 'curl_exec', 'curl_close', 'curl_error') as $functionName) {
+		foreach (array(
+			'curl_init',
+			'curl_setopt',
+			'curl_exec',
+			'curl_close',
+			'curl_error',
+		) as $functionName) {
 			if (!$server->isPhpFunctionSupported($functionName)) {
 				return false;
 			}
@@ -1380,9 +1403,13 @@ class htmlPage {
 					<h3 class="panel-title">Please complete the security check to proceed.</h3>
 				</div>
 				<div class="panel-body">
-					You must enter a setup passphrase to run the preinstaller.
+					Please enter a setup passphrase to run the preinstaller.
 					<br>
-					This is in the "PASSPHRASE" section at the top of this script file.
+					This goes in the "PASSPHRASE" section at the top of this script file.
+					<br><br>
+					Click the "Continue" button below when this is done.
+					<br><br>
+					<a class="btn btn-primary" href="' . $_SERVER["PHP_SELF"] . '">Continue</a>
 				</div>
 			</div>';
 		} elseif ($renderType == 'passwordTooShort') {
@@ -1393,6 +1420,10 @@ class htmlPage {
 				</div>
 				<div class="panel-body">
 					The setup passphrase entered in this script file is too short. It must be at least 6 characters long.
+					<br><br>
+					Click the "Continue" button below when this is done.
+					<br><br>
+					<a class="btn btn-primary" href="' . $_SERVER["PHP_SELF"] . '">Continue</a>
 				</div>
 			</div>';
 		} elseif ($renderType == 'passwordForm') {
@@ -1415,7 +1446,7 @@ class htmlPage {
 							<div class="form-group">
 								<label for="g2_password" class="col-xs-6 col-sm-4 control-label">PassPhrase:</label>
 								<div class="col-xs-6 col-sm-8">
-									<input class="form-control" name="g2_password" id="g2_password" placeholder="' . $folderName . '" type="password">
+									<input class="form-control" name="g2_password" id="g2_password" type="password">
 								</div>
 							</div>
 							<div class="form-group">
@@ -1465,9 +1496,9 @@ class htmlPage {
 				</div>
 			</div>';
 			}
+			echo $deleteWarning;
 			echo '
 			<h2>[A] General Preamble</h2>';
-			echo $deleteWarning;
 			echo '
 			<div class="panel panel-info">
 				<div class="panel-heading">
@@ -1546,7 +1577,6 @@ class htmlPage {
 
 			echo '
 			<h2>[B] Implementation Steps</h2>';
-			echo $deleteWarning;
 			echo '
 			<!-- DOWNLOAD SECTION -->';
 			$arbiter = $startPoint == 'Step 1' ? true : false;
@@ -1556,7 +1586,7 @@ class htmlPage {
 			echo '
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3>[1] Transfer Methods</h3>
+					<h3 id="transfer-methods">[1] Transfer Methods</h3>
 					<span class="lead">Transfer Gallery 2 to this webserver</span>
 					<br><br>
 					<button id="download-toggle" class="btn btn-default" onclick="BlockToggle(\'download\', \'download-toggle\', \'transfer methods\')">' . $label . 'transfer methods
@@ -1575,11 +1605,13 @@ class htmlPage {
 				if ($config->allowFOpen === false) {
 					echo '
 						<div class="alert alert-warning">
-							<h1>PHP\'s "allow_url_fopen" parameter is disabled.</h1>
+							<h2>The PHP "allow_url_fopen" Parameter is Disabled.</h2>
 							<p>
 								You can continue with limited defaults as the Gallery 2 Pre-Installer is unable to interact with the Repository to suggest the best codebase for use.
 								<br><br>
 								Alternatively, enable "allow_url_fopen" before continuing.
+								<br><br>
+								<a class="btn btn-default" href="' . $_SERVER["PHP_SELF"] . '#transfer-methods">Reload</a>
 							<p>
 						</div>';
 				}
@@ -1776,8 +1808,6 @@ class htmlPage {
 						$method['name'],
 						$message
 					);
-
-					$i++;
 				}
 
 				if (!$available) {
@@ -1866,7 +1896,6 @@ class htmlPage {
 		</div>';
 			echo '
 		<h2>[C] Convenience Functions</h2>';
-			echo $deleteWarning;
 			echo '
 		<!-- CHANGE PERMISSIONS -->
 		<div class="panel panel-default">
@@ -2024,6 +2053,10 @@ class htmlPage {
 			<div>
 				<a class="btn btn-primary" href="' . $self . '">Back to Overview</a>
 			</div>';
+		}
+
+		if ($config->authenticated) {
+			echo $deleteWarning;
 		}
 		echo '
 		</div>
