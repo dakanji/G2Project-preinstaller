@@ -63,7 +63,7 @@ class preInstallerConfig {
 	public $availableExtensions = array('zip', 'tar.gz');
 
 	// Available codebases of Gallery 2
-	public $availableVersions = array('official', 'stable', 'tag', 'dev', 'master');
+	public $availableVersions = array('official', 'stable', 'tag', 'alpha', 'beta', 'master');
 
 	// Last Official Version Tag Name
 	public $officialReleaseTag = 'v2.3.2';
@@ -155,7 +155,8 @@ class preInstallerConfig {
 				'stable'   => $latestPathStable,
 				'tag'      => $latestPathAll,
 				'master'   => "https://github.com/$this->g2Repo/archive/master",
-				'dev'      => "https://github.com/$this->g2Repo/archive/dev",
+				'alpha'    => "https://github.com/$this->g2Repo/archive/alpha",
+				'beta'     => "https://github.com/$this->g2Repo/archive/beta",
 			);
 		}
 	}
@@ -273,7 +274,7 @@ class preInstaller {
 					$extension = 'zip';
 				}
 
-				// Gallery 2 Codebase ('official', 'stable', 'tag', 'master', 'dev')
+				// Gallery 2 Codebase ('official', 'stable', 'tag', 'alpha', 'beta', 'master')
 				if (empty($_POST['codebase']) || !in_array($_POST['codebase'], $config->availableVersions)) {
 					$codebase = 'stable';
 				} else {
@@ -1356,7 +1357,7 @@ class PhpUnzipExtractor {
 			'zip_close',
 			'zip_entry_close',
 		)
- as $functionName) {
+		as $functionName) {
 			if (!$server->isPhpFunctionSupported($functionName)) {
 				return false;
 			}
@@ -1409,21 +1410,21 @@ class htmlPage {
 					<br><br>
 					Click the "Continue" button below when this is done.
 					<br><br>
-					<a class="btn btn-primary" href="' . $_SERVER["PHP_SELF"] . '">Continue</a>
+					<a class="btn btn-primary" href="' . $_SERVER['PHP_SELF'] . '">Continue</a>
 				</div>
 			</div>';
 		} elseif ($renderType == 'passwordTooShort') {
 			echo '
 			<div class="panel panel-danger">
 				<div class="panel-heading">
-					<h3 class="panel-title">Password Too Short</h3>
+					<h3 class="panel-title">Passphrase Too Short</h3>
 				</div>
 				<div class="panel-body">
-					The setup passphrase entered in this script file is too short. It must be at least 6 characters long.
+					The provided setup passphrase file is too short. It must be at least 6 characters long.
 					<br><br>
 					Click the "Continue" button below when this is done.
 					<br><br>
-					<a class="btn btn-primary" href="' . $_SERVER["PHP_SELF"] . '">Continue</a>
+					<a class="btn btn-primary" href="' . $_SERVER['PHP_SELF'] . '">Continue</a>
 				</div>
 			</div>';
 		} elseif ($renderType == 'passwordForm') {
@@ -1597,7 +1598,7 @@ class htmlPage {
 
 			if (!empty($args['transferMethods']) && !empty($args['anyExtensionSupported'])) {
 				echo '
-				<!-- "stable", "tag", "master", "dev" -->
+				<!-- "stable", "tag", "alpha", "beta", "master" -->
 				<form class="form-horizontal" id="downloadForm" method="post">
 					<fieldset>
 						<legend>Transfer Gallery 2 to this Webserver</legend>';
@@ -1607,11 +1608,11 @@ class htmlPage {
 						<div class="alert alert-warning">
 							<h2>The PHP "allow_url_fopen" Parameter is Disabled.</h2>
 							<p>
-								You can continue with limited defaults as the Gallery 2 Pre-Installer is unable to interact with the Repository to suggest the best codebase for use.
+								You can continue but note that without the PHP "allow_url_fopen" Parameter enabled, the Gallery 2 Pre-Installer is unable to interact with the Community Repository to improve on the recommendation on the best codebase given below.
 								<br><br>
-								Alternatively, enable "allow_url_fopen" before continuing.
+								Alternatively, enable "allow_url_fopen" and click the button below to continue when done.
 								<br><br>
-								<a class="btn btn-default" href="' . $_SERVER["PHP_SELF"] . '#transfer-methods">Reload</a>
+								<a class="btn btn-default" href="' . $_SERVER['PHP_SELF'] . '#transfer-methods">Reload</a>
 							<p>
 						</div>';
 				}
@@ -1626,9 +1627,12 @@ class htmlPage {
 											Last Official Release - v2.3.2&nbsp;&nbsp;&nbsp;
 										</option>';
 
+				$prevSelect = false;
+
 				if ($args['showTagRelease'] === false
 					&& $args['showStableRelease'] === true
 				) {
+					$prevSelect = true;
 					echo '
 										<option value="stable" selected="selected">
 											Community Stable Version - ' . $config->stableReleaseTag . ' (Recommended)&nbsp;&nbsp;&nbsp;
@@ -1636,6 +1640,7 @@ class htmlPage {
 				} elseif ($args['showTagRelease'] === true
 					&& $args['showStableRelease'] === false
 				) {
+					$prevSelect = true;
 					echo '
 										<option value="tag" selected="selected">
 											Community Release Candidate - ' . $config->releaseCandidateTag . ' (Recommended)&nbsp;&nbsp;&nbsp;
@@ -1643,6 +1648,7 @@ class htmlPage {
 				} elseif ($args['showTagRelease'] === true
 					&& $args['showStableRelease'] === true
 				) {
+					$prevSelect = true;
 					echo '
 										<option value="stable">
 											Community Stable Version - ' . $config->stableReleaseTag . '
@@ -1652,12 +1658,23 @@ class htmlPage {
 										</option>';
 				}
 
+				if (!$prevSelect) {
+					$selectTag      = ' selected="selected"';
+					$recommendedTag = ' (Recommended)';
+				} else {
+					$selectTag      = '';
+					$recommendedTag = '';
+				}
+
 				echo '
 										<option value="master">
-											Community Development Version - Github Master Branch&nbsp;&nbsp;&nbsp;
+											Community Stable Version - Github Master Branch&nbsp;&nbsp;&nbsp;
 										</option>
-										<option value="dev">
-											Community Experimental Version - Github Dev Branch&nbsp;&nbsp;&nbsp;
+										<option value="beta"' . $selectTag . '>
+											Community Development Version - Github Beta Branch' . $recommendedTag . '&nbsp;&nbsp;&nbsp;
+										</option>
+										<option value="alpha">
+											Community Experimental Version - Github Alpha Branch&nbsp;&nbsp;&nbsp;
 										</option>
 									</select>
 								</td>
