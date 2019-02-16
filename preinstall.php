@@ -51,7 +51,7 @@ class preInstallerConfig {
 	public $releaseCandidateTag;
 
 	// Gallery 2 Repository
-	public $g2Repo = 'dakanji/G2Project-main';
+	public $g2Repo = 'dakanji/G2Project';
 
 	// Local name of the gallery2 archive (without extension )
 	public $archiveBaseName = 'gallery2';
