@@ -47,7 +47,9 @@ attic
 
 # Misc Stuff #
 ##############
+composer.phar
 *.zip
+*.tgz
 *.tar.gz
 gallery2
-composer.phar
+
