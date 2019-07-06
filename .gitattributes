@@ -14,7 +14,7 @@
 /dev_vendor export-ignore
 /composer.json export-ignore
 /composer.lock export-ignore
-/dev_scrpts export-ignore
+/dev_scripts export-ignore
 
 #
 # Auto detect text files and perform LF normalization
@@ -28,8 +28,3 @@
 *.php text
 *.inc text
 *.class text
-
-#
-# Ignore conflicts in .commitenv
-#
-.commitenv merge=theirs
